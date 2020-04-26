@@ -5,7 +5,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { JsonpModule } from '@angular/http';
 
 /* components */
-import { CardComponent } from './components/card/card.component';
+// import { CardComponent } from './components/card/card.component';
 
 import { TabsetComponent } from './components/tabset/tabset.component';
 import { TabContentComponent } from './components/tabset/tab-content/tab-content.component';
@@ -26,9 +26,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     JsonpModule,
   ],
   declarations: [
-    CardComponent,
+    // CardComponent,
     FileTreeComponent,
-   
     TabsetComponent,
     TabContentComponent,
     ProgressBarComponent,
@@ -39,9 +38,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     ProfileComponent
   ],
   exports: [
-    CardComponent,
+    // CardComponent,
     FileTreeComponent,
-   
     TabsetComponent,
     TabContentComponent,
     ProgressBarComponent,

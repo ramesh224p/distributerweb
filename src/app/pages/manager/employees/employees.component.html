@@ -1,3 +1,103 @@
-<p>
-  employees works!
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <card cardTitle="Data Table">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>FIRST NAME</th>
+            <th>FIRST NAME</th>
+            <th>EMAIL</th>
+            <th>ADDRESS</th>
+            <th>AGE</th>
+            <th>NUMBER</th>
+            <th>EDIT</th>
+            <th>DELETE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of employees | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+            <td>{{index+1}}</td>
+            <td>{{item.emp_name}}</td>
+            <td>{{item.emp_email}}</td>
+            <td>{{item.emp_address}}</td>
+            <td>{{item.age}}</td>
+            <td>{{item.emp_number}}</td>
+            <td>
+              <!-- <card cardTitle="modal sizes"> -->
+              <button class="btn btn-primary" (click)="fifthModal.open(index, item)">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+            <!-- </card> -->     
+            </td>
+            <td>
+              <button class="btn btn-icon btn-danger" (click)="employeesdelete(item.id, index)">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <form class="pagination-wrapper">
+        <div class="form-group pages">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
+            autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+        <div class="form-group options pages">
+          <div class="input-group input-group-sm">
+            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
+              <option>1</option>
+              <option>5</option>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+              <option>200</option>
+            </select>
+            <span class="input-group-addon addon-right">Per Page</span>
+          </div>
+        </div>
+      </form>
+    </card>
+  </div>
+</div>
+
+<modal #fifthModal modalClass="modal-lg">
+  <modal-header>
+    <h6>Edit employee</h6>
+  </modal-header>
+  <modal-content>
+    <card cardTitle="Input Types" isCollapse="true">
+        <div class="form-group">
+          <label class="control-label">First Name</label>
+            <input type="text" class="form-control" placeholder="enter first name">
+
+          <label class="control-label">Last Name</label>
+            <input type="text" class="form-control" placeholder="enter last name">
+
+          <label class="control-label"> Email</label>
+            <input type="email" class="form-control" placeholder="read only email" readonly>
+
+          <label class="control-label">Age</label>
+            <input type="test" class="form-control" placeholder="enter age">
+
+          <label class="control-label">Address</label>
+            <input type="text" class="form-control form-control-lg" placeholder="address">
+
+          <label class="control-label">Password</label>
+            <input type="passwrod" class="form-control" placeholder="Disabled Password" disabled>
+
+          <label class="control-label">Number</label>
+            <input type="test" class="form-control" placeholder="enter mobile number">
+        </div>
+        <button class="btn btn-primary" (click)="editemp()" *ngIf="_id">EDIT</button>
+        <button class="btn btn-primary" *ngIf="!_id">ADD</button>
+    </card>
+  </modal-content>
+  
+  <modal-footer>
+    <button class="btn btn-primary" (click)="closeModal(sixthModal)">close</button>
+  </modal-footer>
+</modal>
