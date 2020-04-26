@@ -1,62 +1,37 @@
-<!-- <div class="row">
-  <div class="col-md-3 animated fadeIn">
-    <div class="card card-block tip-card">
-      <div class="tip-msg">
-        <h3>Users</h3>
-        <span>118 / 251</span>
-      </div>
-      <button class="tip-ico tip-ico-primary">
-        <i class="fa fa-group fa-fw"></i>
-      </button>
-    </div>
-  </div>
-  <div class="col-md-3 animated fadeIn">
-    <div class="card card-block tip-card">
-      <div class="tip-msg">
-        <h3>Messages</h3>
-        <span>2 messages</span>
-      </div>
-      <button class="tip-ico tip-ico-info">
-        <i class="fa fa-comments fa-fw"></i>
-      </button>
-    </div>
-  </div>
-  <div class="col-md-3 animated fadeIn">
-    <div class="card card-block tip-card">
-      <div class="tip-msg">
-        <h3>Mails</h3>
-        <span>2 mails</span>
-      </div>
-      <button class="tip-ico tip-ico-success">
-        <i class="fa fa-envelope fa-fw"></i>
-      </button>
-    </div>
-  </div>
-  <div class="col-md-3 animated fadeIn">
-    <div class="card card-block tip-card">
-      <div class="tip-msg">
-        <h3>Feedback</h3>
-        <span>20 feedbacks</span>
-      </div>
-      <button class="tip-ico tip-ico-danger">
-        <i class="fa fa-warning fa-fw"></i>
-      </button>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <card cardTitle="Todo List" isCollapse="true">
-      <du-todolist></du-todolist>
-    </card>
-  </div>
+<div class="row">
   <div class="col-md-6">
-    <card>
-      <profile></profile>
-    </card>
+    <!-- <card cardTitle="Base Tabs"> -->
+      
+      <tabset id="tab1">
+        <h2 class="h2">Employees</h2>
+        <!-- <tab-content for="tab1" tabTitle="Home" [active]="true"> -->
+          <p class="p">
+            Total Number Of Employees
+          </p>
+          <p class="p">
+            <!-- {{Object.keys(employees).length}} -->
+            {{employees}}
+          </p>
+          <!-- </tab-content> -->
+      </tabset>
+    <!-- </card> -->
   </div>
+
   <div class="col-md-6">
-    <card>
-      <weather></weather>
-    </card>
+    <!-- <card cardTitle="Disabled Tabs"> -->
+      
+      <tabset id="tab2">
+        <h2 class="h2">Branches</h2>
+        <!-- <tab-content for="tab2" tabTitle="Home" [active]="true"> -->
+          <p class="p">
+            Total Number Of Branches
+          </p>
+          <p class="p">
+            {{branches}}
+          </p>
+        <!-- </tab-content> -->
+      </tabset>
+    <!-- </card> -->
   </div>
-</div>-->
-hiiiiiii 
+</div>
+

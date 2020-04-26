@@ -7,8 +7,8 @@ import { JsonpModule } from '@angular/http';
 /* components */
 // import { CardComponent } from './components/card/card.component';
 
-import { TabsetComponent } from './components/tabset/tabset.component';
-import { TabContentComponent } from './components/tabset/tab-content/tab-content.component';
+// import { TabsetComponent } from './components/tabset/tabset.component';
+// import { TabContentComponent } from './components/tabset/tab-content/tab-content.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { FileTreeComponent } from './components/file-tree/file-tree.component';
 import { SwitchComponent } from './components/switch/switch.component';
@@ -28,8 +28,8 @@ import { ProfileComponent } from './components/profile/profile.component';
   declarations: [
     // CardComponent,
     FileTreeComponent,
-    TabsetComponent,
-    TabContentComponent,
+    // TabsetComponent,
+    // TabContentComponent,
     ProgressBarComponent,
     SwitchComponent,
     PellEditorComponent,
@@ -40,8 +40,8 @@ import { ProfileComponent } from './components/profile/profile.component';
   exports: [
     // CardComponent,
     FileTreeComponent,
-    TabsetComponent,
-    TabContentComponent,
+    // TabsetComponent,
+    // TabContentComponent,
     ProgressBarComponent,
     SwitchComponent,
     PellEditorComponent,

@@ -1,12 +1,12 @@
 <div class="row">
   <div class="col-md-12">
-    <card cardTitle="Data Table">
+    <!-- <card cardTitle="Data Table"> -->
       <table class="table table-bordered">
         <thead>
           <tr>
             <th>ID</th>
             <th>FIRST NAME</th>
-            <th>FIRST NAME</th>
+            <th>LAST NAME</th>
             <th>EMAIL</th>
             <th>ADDRESS</th>
             <th>AGE</th>
@@ -18,24 +18,28 @@
         <tbody>
           <tr *ngFor="let item of employees | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
             <td>{{index+1}}</td>
-            <td>{{item.emp_name}}</td>
+            <td>{{item.emp_first_name}}</td>
+            <td>{{item.emp_last_name}}</td>
             <td>{{item.emp_email}}</td>
             <td>{{item.emp_address}}</td>
             <td>{{item.age}}</td>
             <td>{{item.emp_number}}</td>
             <td>
               <!-- <card cardTitle="modal sizes"> -->
-              <button class="btn btn-primary" (click)="fifthModal.open(index, item)">
+              <button class="btn btn-primary" (click)="[fifthModal.open(), empEdit(item, index)]">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
             <!-- </card> -->     
             </td>
             <td>
-              <button class="btn btn-icon btn-danger" (click)="employeesdelete(item.id, index)">
+              <button class="btn btn-icon btn-danger" (click)="employeesDelete(item.id, index)">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </button>
             </td>
           </tr>
+          <button class="btn btn-icon btn-danger" (click)="[fifthModal.open(), empAdd()]">
+            <i class="fa fa-plus-circle" aria-hidden="true">ADD</i>
+          </button>
         </tbody>
       </table>
       <form class="pagination-wrapper">
@@ -60,44 +64,44 @@
           </div>
         </div>
       </form>
-    </card>
+    <!-- </card> -->
   </div>
 </div>
 
 <modal #fifthModal modalClass="modal-lg">
   <modal-header>
-    <h6>Edit employee</h6>
+    <h3>Edit Employee</h3>
   </modal-header>
   <modal-content>
-    <card cardTitle="Input Types" isCollapse="true">
+    <!-- <card cardTitle="Input Types" isCollapse="true"> -->
         <div class="form-group">
           <label class="control-label">First Name</label>
-            <input type="text" class="form-control" placeholder="enter first name">
+            <input type="text" class="form-control" [(ngModel)]="firstname" placeholder="enter first name">
 
           <label class="control-label">Last Name</label>
-            <input type="text" class="form-control" placeholder="enter last name">
+            <input type="text" class="form-control" [(ngModel)]="lastname" placeholder="enter last name">
 
           <label class="control-label"> Email</label>
-            <input type="email" class="form-control" placeholder="read only email" readonly>
+            <input type="email" class="form-control" [(ngModel)]="email" placeholder="required email">
 
           <label class="control-label">Age</label>
-            <input type="test" class="form-control" placeholder="enter age">
+            <input type="test" class="form-control" [(ngModel)]="eage" placeholder="enter eage">
 
           <label class="control-label">Address</label>
-            <input type="text" class="form-control form-control-lg" placeholder="address">
+            <input type="text" class="form-control form-control-lg" [(ngModel)]="address" placeholder="required address">
 
           <label class="control-label">Password</label>
-            <input type="passwrod" class="form-control" placeholder="Disabled Password" disabled>
+            <input type="passwrod" class="form-control" [(ngModel)]="Password" placeholder="Disabled Password" disabled>
 
           <label class="control-label">Number</label>
-            <input type="test" class="form-control" placeholder="enter mobile number">
+            <input type="test" class="form-control" [(ngModel)]="number" placeholder="enter mobile number">
         </div>
-        <button class="btn btn-primary" (click)="editemp()" *ngIf="_id">EDIT</button>
-        <button class="btn btn-primary" *ngIf="!_id">ADD</button>
-    </card>
+        <button class="btn btn-primary" (click)="editEmp(item, index, firstname, lastname, email, eage, address, number)" *ngIf="_id">EDIT</button>
+        <button class="btn btn-primary" (click)="addEmp(item, firstname, lastname, email, eage, address, number)" *ngIf="!_id">ADD</button>
+    <!-- </card> -->
   </modal-content>
   
   <modal-footer>
-    <button class="btn btn-primary" (click)="closeModal(sixthModal)">close</button>
+    <button class="btn btn-primary" (click)="closeModal(fifthModal)">close</button>
   </modal-footer>
 </modal>

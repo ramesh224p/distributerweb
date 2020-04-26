@@ -17,34 +17,113 @@ export class EmployeesComponent implements OnInit {
   private url = `${environment.apiBaseUrl}/v1`;
   items: string[] ;
   id: string;
+  i: string;
+  getid: string;
+  _id:string;
   employees: string[] ;
   employee: string[];
   employeesData: Array<any>;
   editForm: FormGroup;
+  firstname:'';
+  lastname:'';
+  email:'';
+  eage:'';
+  address:'';
+  number:'';
+  emp_first_name: '';
+  emp_last_name: '';
+  emp_email: '';
+  age: '';
+  emp_address: '';
+  password:'';
+  emp_number: '';
+
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) { 
     this.formEdit();
-	
   }
 
   formEdit(){
     this.editForm = this.formBuilder.group({
-      emp_first_name: ['', Validators.required],
-      emp_last_name: ['', Validators.required],
-      emp_email: ['', Validators.required],
+      fullName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      Email: ['', [Validators.required, Validators.email]],
       age: ['', Validators.required],
-      emp_address: ['', Validators.required],
-      password: ['', Validators.required],
-      emp_number: ['', Validators.required]
+      address: ['', Validators.required],
+      password: ['', [Validators.required,Validators.minLength(6)]],
+      number: ['', Validators.required]
     });
   }
 
-  editemp(employee, item){
-    console.log(this.employee, item);
-    // this.http.get(`${this.url}/employees/`+item.id).subscribe(data => {
-    //   this.employee = data['data'];
-    //   console.log(this.employee);
-    // })
+  get fval() {
+    return this.editForm.controls;
+    }
+
+  empAdd(){
+    this._id=undefined;
+    this.firstname='';
+    this.lastname='';
+    this.email='';
+    this.eage='';
+    this.address='';
+    this.number='';
+    console.log('empAdd');
+  }
+
+  addEmp(){
+    var itemobj={
+      emp_first_name : this.firstname,
+      emp_last_name : this.lastname,
+      emp_email:this.email,
+      age:this.eage,
+      emp_address:this.address,
+      emp_number:this.number
+    };
+
+    console.log(itemobj)
+
+    this.http.post(`${this.url}/employees/`,itemobj).subscribe(data => {
+      console.log(data);
+      if( data['status'] == true){
+        this.employees.push(data['data']['data']);
+        console.log(this.employees);
+      }
+    })
+  }
+
+  empEdit(item, index){
+    this._id=item.id;
+    this.i=index;
+    console.log(index)
+    console.log(item['id']);
+    this.firstname=item.emp_first_name;
+    this.lastname=item.emp_last_name;
+    this.email=item.emp_email;
+    this.eage=item.age;
+    this.address=item.emp_address;
+    this.number=item.emp_number;
+  }
+
+  editEmp(_id, i){
+    console.log(this._id, this.i);
+    var itemedit={
+      emp_first_name:this.firstname,
+      emp_last_name:this.lastname,
+      emp_email:this.email,
+      age:this.eage,
+      emp_address:this.address,
+      emp_number:this.number
+    }
+    
+    console.log(itemedit);
+    this.http.put(`${this.url}/employees/`+this._id, itemedit).subscribe(data => {
+      if( data['status'] == true){
+        console.log(data['data']['data']);
+        console.log(this.i);
+        // this.employees.push(data['data']['data'] );
+        console.log(this.employees);
+      }
+    })
   }
 
   // onSubmit(item, data){
@@ -58,8 +137,8 @@ export class EmployeesComponent implements OnInit {
     this.loadData();
   }
 
-  openModal(modal) {
-    modal.open();
+  openModal(index, item, modal) {
+    modal.open(index, item);
   }
 
   closeModal(modal) {
@@ -82,7 +161,8 @@ export class EmployeesComponent implements OnInit {
    
   }
 
-  employeesdelete(id, index){
+  employeesDelete(id, index){
+    console.log(id, index);
     this.http.delete(`${this.url}/employees/`+id).subscribe(data => {
       console.log(this.employees, data)
       if(data['status'] == true){
