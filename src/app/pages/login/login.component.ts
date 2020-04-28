@@ -12,11 +12,12 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   private url = `${environment.apiBaseUrl}/v1`;
-  emp_email: '';
-  Passwords;
-  private emails;
+  Email;
+  Password;
+  emails;
   email;
   password;
+  passwords;
   public emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
   loginForm: FormGroup;
 
@@ -24,8 +25,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      password: new FormControl('', Validators.required),
-      email: new FormControl('', [
+      Password: new FormControl('', Validators.required),
+      Email: new FormControl('', [
         Validators.required,
         Validators.pattern(this.emailPattern),
         Validators.maxLength(20),
@@ -35,8 +36,8 @@ export class LoginComponent implements OnInit {
 
   login(){
     var log={
-      emp_email:this.emails,
-      password:this.Passwords
+      email:this.emails,
+      password:this.passwords
     }
     console.log(log);
     this.http.post(`${this.url}/login/`,log).subscribe(data => {
