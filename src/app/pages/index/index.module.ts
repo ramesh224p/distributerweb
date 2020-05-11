@@ -7,6 +7,7 @@ import { TabContentComponent } from '../../shared/components/tabset/tab-content/
 import { TabsetComponent } from '../../shared/components/tabset/tabset.component';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { IndexService } from './index.service';
 
 
 
@@ -21,6 +22,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
         IndexComponent,
         TabContentComponent,
         TabsetComponent,
-    ]
+    ],
+    providers: [IndexService]
 })
 export class IndexModule { }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { IndexService } from './index.service';
 
 @Component({
   selector: 'app-index',
@@ -17,16 +18,32 @@ export class IndexComponent implements OnInit {
 
   public AnimationBarOption;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private indexservice:IndexService) { }
+
+  getIndexEmployee(){
+      this.indexservice.getEmployeeData().subscribe(data => {
+          this.employees=Object.keys(data['data']).length
+          console.log(this.employees);
+        })
+  }
+
+  getIndexcomplaint(){
+    this.indexservice.getBranchesData().subscribe(data => {
+        this.branches=Object.keys(data['data']).length
+        console.log(this.branches);
+      })
+  }
 
   ngOnInit() {
-    this.http.get(`${this.url}/employees`).subscribe(data => {
-      this.employees=Object.keys(data['data']).length
-      console.log(this.employees);
-    })
-    this.http.get(`${this.url}/branches`).subscribe(data => {
-      this.branches=Object.keys(data['data']).length
-      console.log(this.branches);
-    })
+    this.getIndexEmployee();
+    this.getIndexcomplaint();
+    // this.http.get(`${this.url}/employees`).subscribe(data => {
+    //   this.employees=Object.keys(data['data']).length
+    //   console.log(this.employees);
+    // })
+    // this.http.get(`${this.url}/branches`).subscribe(data => {
+    //   this.branches=Object.keys(data['data']).length
+    //   console.log(this.branches);
+    // })
   }
 }

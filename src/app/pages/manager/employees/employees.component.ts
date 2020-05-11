@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import swal from 'sweetalert2';
+import { EmployeeService } from './employee.service';
 
 @Component({
   selector: 'app-employees',
@@ -39,7 +40,7 @@ export class EmployeesComponent implements OnInit {
   emp_number: '';
 
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) { 
+  constructor(private http: HttpClient, private employeeservice: EmployeeService, private formBuilder: FormBuilder) { 
     this.formEdit();
   }
 
@@ -57,7 +58,7 @@ export class EmployeesComponent implements OnInit {
 
   get fval() {
     return this.editForm.controls;
-    }
+  }
 
   empAdd(){
     this._id=undefined;
@@ -80,9 +81,9 @@ export class EmployeesComponent implements OnInit {
       emp_number:this.number
     };
 
-    console.log(itemobj)
+    // console.log(itemobj)
 
-    this.http.post(`${this.url}/employees/`,itemobj).subscribe(data => {
+    this.employeeservice.createEmployee(itemobj).subscribe(data => {
       console.log(data);
       if( data['status'] == true){
         this.employees.push(data['data']['data']);
@@ -116,7 +117,7 @@ export class EmployeesComponent implements OnInit {
     }
     
     console.log(itemedit);
-    this.http.put(`${this.url}/employees/`+this._id, itemedit).subscribe(data => {
+    this.employeeservice.editEmployee(this._id, itemedit).subscribe(data => {
       if( data['status'] == true){
         console.log(data['data']['data']);
         console.log(this.i);
@@ -125,13 +126,6 @@ export class EmployeesComponent implements OnInit {
       }
     })
   }
-
-  // onSubmit(item, data){
-  //   this.http.put(`${this.url}/employees/`+item,data).subscribe(data => {
-  //     this.employee = data['data'];
-  //     console.log(this.employee);
-  //   })
-  // }
 
   ngOnInit() {
     this.loadData();
@@ -154,7 +148,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   loadData() {
-    this.http.get(`${this.url}/employees`).subscribe(data => {
+    this.employeeservice.getEmployees().subscribe(data => {
       this.employees = data['data'];
       console.log(this.employees);
     })
@@ -163,7 +157,7 @@ export class EmployeesComponent implements OnInit {
 
   employeesDelete(id, index){
     console.log(id, index);
-    this.http.delete(`${this.url}/employees/`+id).subscribe(data => {
+    this.employeeservice.deleteEmployee(id).subscribe(data => {
       console.log(this.employees, data)
       if(data['status'] == true){
         this.employees.splice(index, 1);
