@@ -1,0 +1,15 @@
+.input-group{
+    .input-group-addon {
+        // @extend .bg-primary;
+        background: none;
+        color: none;
+        border: none;
+    }
+}
+
+.right{
+    float: right;
+}
+.not-allowed{
+    cursor: not-allowed;
+}

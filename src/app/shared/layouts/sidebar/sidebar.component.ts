@@ -3,6 +3,7 @@ import {menuService} from '../../services/menu.service';
 import {GlobalService} from '../../services/global.service';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
@@ -18,11 +19,14 @@ export class SidebarComponent implements OnInit, AfterViewInit {
               public _globalService: GlobalService) {
   }
 
+  userRole: any ;
+
   ngOnInit() {
-    this.menuInfo = this._menuService.putSidebarJson();
-    this._sidebarToggle();
-    this._menuService.selectItem(this.menuInfo); /* ----->初始化判断路由isActive状态  未完成  待优化 */
-    this._isSelectItem(this.menuInfo);
+    this.userRole = JSON.parse(localStorage.getItem('userData'))['data1']['emp_role'];
+      this.menuInfo = this._menuService.putSidebarJson();
+      this._sidebarToggle();
+      this._menuService.selectItem(this.menuInfo);     
+    this._isSelectItem(this.menuInfo);    
   }
 
   public _sidebarToggle() {
@@ -42,7 +46,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   }
 
-  /* 初始化 判断当前路由状态信息 首次加载菜单状态 */
+
   _isSelectItem(item) {
     for (const i in item) {
       if (item[i].children) {

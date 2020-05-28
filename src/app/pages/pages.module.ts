@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { routing } from './pages.routing';
 import { HttpModule } from '@angular/http';
-import { HttpClientModule } from '@angular/common/http';
 
 import { LayoutModule } from '../shared/layout.module';
 import { SharedModule } from '../shared/shared.module';
@@ -20,13 +19,12 @@ import { LoginComponent } from './login/login.component';
         SharedModule,
         FormsModule,
         HttpModule,
-        HttpClientModule,
         routing
     ],
     declarations: [
         PagesComponent,
         LoginComponent,
-        CardComponent
+        CardComponent,
     ]
 })
 export class PagesModule { }

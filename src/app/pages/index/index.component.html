@@ -1,37 +1,44 @@
 <div class="row">
   <div class="col-md-6">
-    <!-- <card cardTitle="Base Tabs"> -->
-      
       <tabset id="tab1">
-        <h2 class="h2">Employees</h2>
-        <!-- <tab-content for="tab1" tabTitle="Home" [active]="true"> -->
+        <h2 class="h2">Today Sale</h2>
           <p class="p">
-            Total Number Of Employees
+            Total Number Of Sales Today
           </p>
           <p class="p">
-            <!-- {{Object.keys(employees).length}} -->
             {{employees}}
           </p>
-          <!-- </tab-content> -->
       </tabset>
-    <!-- </card> -->
   </div>
 
   <div class="col-md-6">
-    <!-- <card cardTitle="Disabled Tabs"> -->
-      
       <tabset id="tab2">
-        <h2 class="h2">Branches</h2>
-        <!-- <tab-content for="tab2" tabTitle="Home" [active]="true"> -->
+        <h2 class="h2">Total Sales</h2>
           <p class="p">
-            Total Number Of Branches
+            Total Number Of Sales This Month
           </p>
           <p class="p">
             {{branches}}
           </p>
-        <!-- </tab-content> -->
       </tabset>
-    <!-- </card> -->
   </div>
+
+  <div class="col-md-6">
+    <tabset id="tab1">
+      <h2 class="h2">List of Sales</h2>
+        <p class="p">
+          Total List
+        </p>
+        <p class="p">
+          {{branches}}
+        </p>
+    </tabset>
+  </div>
+
+  <!-- <div class="col-md-6">
+    <tabset id="tab2">
+      <app-todolist></app-todolist>
+    </tabset>
+  </div> -->
 </div>
 

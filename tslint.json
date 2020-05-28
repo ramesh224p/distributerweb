@@ -7,7 +7,7 @@
     "callable-types": true,
     "class-name": true,
     "comment-format": [
-      true,
+      true
     ],
     "curly": true,
     "eofline": true,

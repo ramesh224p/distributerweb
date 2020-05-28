@@ -1,3 +1,97 @@
-<p>
-  finances works!
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <!-- <card cardTitle="Data Table"> -->
+      <button class="btn btn-success right" (click)="[fifthModal.open(), financepopAdd()]">
+        <i class="fa fa-plus-circle" aria-hidden="true">ADD</i>
+      </button>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>PERSON NAME</th>
+            <th>WORK</th>
+            <th>ADDRESS</th>
+            <th>NUMBER</th>
+            <th>STATUS</th>
+            <th>EDIT</th>
+            <th>DELETE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of finances | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+            <td>{{index+1}}</td>
+            <td>{{item.person_name}}</td>
+            <td>{{item.work}}</td>
+            <td>{{item.address}}</td>
+            <td>{{item.mobile_number}}</td>
+            <td>{{item.status}}</td>
+            <td>
+              <!-- <card cardTitle="modal sizes"> -->
+              <button class="btn btn-primary" (click)="[fifthModal.open(), financepopEdit(item, index)]">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+            <!-- </card> -->     
+            </td>
+            <td>
+              <button class="btn btn-icon btn-danger" (click)="financeDelete(item.id, index)">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <form class="pagination-wrapper">
+        <div class="form-group pages">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
+            autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+        <div class="form-group options pages">
+          <div class="input-group input-group-sm">
+            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
+              <option>1</option>
+              <option>5</option>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+              <option>200</option>
+            </select>
+            <span class="input-group-addon addon-right">Per Page</span>
+          </div>
+        </div>
+      </form>
+    <!-- </card> -->
+  </div>
+</div>
+
+<modal #fifthModal modalClass="modal-lg">
+  <modal-header>
+    <h3>Edit Member</h3>
+  </modal-header>
+  <modal-content>
+    <!-- <card cardTitle="Input Types" isCollapse="true"> -->
+        <div class="form-group">
+          <label class="control-label">PERSON NAME</label>
+            <input type="text" class="form-control" [(ngModel)]="personname" placeholder="enter person name">
+
+          <label class="control-label">Work</label>
+            <input type="text" class="form-control" [(ngModel)]="works" placeholder="Work details">
+
+          <label class="control-label">Address</label>
+            <input type="text" class="form-control form-control-lg" [(ngModel)]="address" placeholder="required address">
+
+          <label class="control-label">Number</label>
+            <input type="test" class="form-control" [(ngModel)]="number" placeholder="enter mobile number">
+        
+        <button class="btn btn-primary right" (click)="editFinance(item, index, personname, works, address, number)" *ngIf="_id">EDIT</button>
+        <button class="btn btn-success right" (click)="addFinance(item, personname, works, address, number)" *ngIf="!_id">ADD</button>
+    <!-- </card> -->
+  </div>
+  </modal-content>
+  
+  <modal-footer>
+    <button class="btn btn-icon btn-danger" (click)="closeModal(fifthModal)">close</button>
+  </modal-footer>
+</modal>

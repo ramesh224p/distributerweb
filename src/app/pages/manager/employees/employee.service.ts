@@ -11,30 +11,20 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
 
-  getEmployees(){
+  getEmployees() {
     return this.http.get(`${this.url}/employees`);
   }
 
-  createEmployee(itemobj){
-    let httpheaders= new HttpHeaders()
-      .set('content-type','application/json');
-    let options={
-      headers:httpheaders
-    }
-    return this.http.post(`${this.url}/employees`, itemobj, options);
+  createEmployee(itemobj) {
+    return this.http.post(`${this.url}/employees`, itemobj);
   }
 
-  editEmployee(id, itemedit){
-    let httpheaders= new HttpHeaders()
-      .set('content-type','application/json');
-    let options={
-      headers:httpheaders
-    }
-  return this.http.put(`${this.url}/employees/`+id, itemedit, options);
+  editEmployee(id, itemedit) {
+  return this.http.put(`${this.url}/employees/` + id, itemedit);
   }
 
-  deleteEmployee(id){
-    return this.http.delete(`${this.url}/employees/`+id);
+  deleteEmployee(id) {
+    return this.http.delete(`${this.url}/employees/` + id);
   }
 
 }

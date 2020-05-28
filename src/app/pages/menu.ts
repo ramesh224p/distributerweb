@@ -6,7 +6,9 @@ export let MENU_ITEM = [
             { path: 'inventory-details', title: 'Inventory-Details' },
             { path: 'indent', title: 'Indent' },
             { path: 'list-indent', title: 'List-Indent' },
-            { path: 'acknowledgement', title: 'Acknowledgement' }
+            { path: 'inventory-assign', title: 'Inventory-Assign' },
+            { path: 'inventory-assignlist', title: 'Inventory-Assignlist' },
+            { path: 'acknowledgement', title: 'Acknowledgement' },  
         ]
     },
     { path: 'manager', title: 'Manager', icon: 'user',
@@ -23,3 +25,4 @@ export let MENU_ITEM = [
     },
     { path: 'reports', title: 'Reports', icon: 'pencil' },
 ];
+

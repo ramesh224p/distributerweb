@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import {FormBuilder, FormGroup, FormControl, Validators} from "@angular/forms";
+import { HttpClient } from '@angular/common/http';
+import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 
@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   email;
   password;
   passwords;
+  user;
   public emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
   loginForm: FormGroup;
 
@@ -34,19 +35,19 @@ export class LoginComponent implements OnInit {
     });
   } 
 
-  login(){
-    var log={
-      email:this.emails,
-      password:this.passwords
-    }
+  login() {
+    let log = {
+      email: this.emails,
+      password: this.passwords
+    };
     console.log(log);
-    this.http.post(`${this.url}/login/`,log).subscribe(data => {
+    this.http.post(`${this.url}/login/`, log).subscribe(data => {
       console.log(data);
-      if(data['status'] == true){
-        localStorage.setItem('token', data['val']['token']);
+      if (data['status'] === true) {
+        localStorage.setItem('userData', JSON.stringify(data['val']));
         this.router.navigate(['/pages/index']);
       }
-    })
+    });
   }
 
 }

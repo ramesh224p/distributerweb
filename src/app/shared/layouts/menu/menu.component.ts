@@ -3,6 +3,7 @@ import { collapse } from '../../animation/collapse-animate';
 import { GlobalService } from '../../services/global.service';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'du-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
@@ -10,8 +11,9 @@ import { GlobalService } from '../../services/global.service';
 })
 export class MenuComponent {
   @Input() menuInfo: any;
-
-  constructor(private _globalService: GlobalService) { }
+  
+  constructor(private _globalService: GlobalService) {
+  }
 
   private isToggleOn(item) {
     item.toggle === 'on' ? item.toggle = 'off' : item.toggle = 'on';

@@ -1,3 +1,94 @@
-<p>
-  indent works!
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <!-- <card cardTitle="Data Table"> -->
+      <button class="btn btn-success right" (click)="[fifthModal.open(), indentpopAdd()]">
+        <i class="fa fa-plus-circle" aria-hidden="true">ADD</i>
+      </button>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>BRANCH ID</th>
+            <th>MEMORY GB</th>
+            <th>RAM GB</th>
+            <th>QUANTITY</th>
+            <th>STATUS</th>
+            <th>EDIT</th>
+            <th>DELETE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of indent | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+            <td>{{index+1}}</td>
+            <td>{{item.Branch}}</td>
+            <td>{{item.Memory_GB}}</td>
+            <td>{{item.Ram_GB}}</td>
+            <td>{{item.Quantity}}</td>
+            <td>{{item.status}}</td>
+            <td>
+              <!-- <card cardTitle="modal sizes"> -->
+              <button class="btn btn-primary" (click)="[fifthModal.open(), indentpopEdit(item, index)]">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+            <!-- </card> -->     
+            </td>
+            <td>
+              <button class="btn btn-icon btn-danger" (click)="indentDelete(item.id, index)">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <form class="pagination-wrapper">
+        <div class="form-group pages">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
+            autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+        <div class="form-group options pages">
+          <div class="input-group input-group-sm">
+            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
+              <option>1</option>
+              <option>5</option>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+              <option>200</option>
+            </select>
+            <span class="input-group-addon addon-right">Per Page</span>
+          </div>
+        </div>
+      </form>
+    <!-- </card> -->
+  </div>
+</div>
+
+<modal #fifthModal modalClass="modal-lg">
+  <modal-header>
+    <h3>Edit Indent</h3>
+  </modal-header>
+  <modal-content>
+    <!-- <card cardTitle="Input Types" isCollapse="true"> -->
+        <div class="form-group">
+          <label class="control-label">Branch Id</label>
+            <input type="text" class="form-control" [(ngModel)]="branchid" placeholder="enter branch id">
+
+          <label class="control-label">Memory GB</label>
+            <input type="text" class="form-control" [(ngModel)]="memorygb" placeholder="memory in gb">
+
+          <label class="control-label">Ram GB</label>
+          <input type="text" class="form-control" [(ngModel)]="ramgb" placeholder="ram in gb">
+
+          <button class="btn btn-primary right" (click)="editIndent(item, index, branchid, memorygb, ramgb, quantity)" *ngIf="_id">EDIT</button>
+          <button class="btn btn-success right" (click)="addIndent(item, branchid, memorygb, ramgb, quantity)" *ngIf="!_id">ADD</button>
+    <!-- </card> -->
+        </div>
+  </modal-content>
+  
+  <modal-footer>
+    <button class="btn btn-icon btn-danger" (click)="closeModal(fifthModal)">close</button>
+  </modal-footer>
+</modal>

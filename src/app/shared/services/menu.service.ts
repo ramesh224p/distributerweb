@@ -4,23 +4,69 @@ import { Router } from '@angular/router';
 import { GlobalService } from './global.service';
 
 @Injectable()
+// tslint:disable-next-line: class-name
 export class menuService {
 
   constructor(public _globalService: GlobalService, private _router: Router) {
-    this.getNodePath(MENU_ITEM);
+    this.userRole = JSON.parse(localStorage.getItem('userData'))['data1']['emp_role'];
+    if (this.userRole === 1) {
+      this.getNodePath(MENU_ITEM);
+    }
+
+    if (this.userRole === 2) {
+      this.MENU_ITEM = [
+        { path: 'index', title: 'Dashboard', icon: 'dashboard' },
+        { path: 'attendance', title: 'Attendance', icon: 'check-square-o' },
+        { path: 'inventory', title: 'Inventory', icon: 'check-square-o',
+            children: [
+                { path: 'indent', title: 'Indent' },
+                { path: 'acknowledgement', title: 'Acknowledgement' },  
+            ]
+        },
+        { path: 'manager', title: 'Manager', icon: 'user',
+            children: [
+                { path: 'employees', title: 'Employees' },
+                { path: 'complaints', title: 'Complaints' },
+            ]
+        },
+        { path: 'reports', title: 'Reports', icon: 'pencil' },
+      ];
+      this.getNodePath(this.MENU_ITEM);
+    }
+    if (this.userRole === 3) {
+      this.MENU_ITEM = [
+        { path: 'index', title: 'Dashboard', icon: 'dashboard' },
+        { path: 'attendance', title: 'Attendance', icon: 'check-square-o' },
+        { path: 'inventory', title: 'Inventory', icon: 'check-square-o',
+            children: [
+                { path: 'indent', title: 'Indent' },
+                { path: 'acknowledgement', title: 'Acknowledgement' },  
+            ]
+        },
+        { path: 'employees', title: 'Employees', icon: 'user',
+        },
+        { path: 'reports', title: 'Reports', icon: 'pencil' },
+      ];
+      this.getNodePath(this.MENU_ITEM);
+    }
+    
   }
 
   private parent_node = null;
   private node = null;
   private path_item = [];
+  userRole: any;
+  MENU_ITEM: any;
 
   protected queryParentNode(json: any, node_id: any) {
     for (let i = 0; i < json.length; i++) {
-      if (this.node)
+      if (this.node) {
         break;
+      }
       const object = json[i];
-      if (!object || !object.path)
+      if (!object || !object.path) {
         continue;
+      }
       if (object.path === node_id) {
         this.node = object;
         break;
@@ -33,8 +79,9 @@ export class menuService {
         }
       }
     }
-    if (!this.node)
+    if (!this.node) {
       this.parent_node = null;
+    }
     return {
       parent_node: this.parent_node,
       node: this.node
@@ -64,22 +111,33 @@ export class menuService {
         index.routerLink = this.creatRouterLink(index.path);
         index.routerLink.unshift('/', 'pages');
       }
-    })
+    });
   }
 
+
   public putSidebarJson() {
-    return MENU_ITEM;
+    if (this.userRole === 1) {
+      return MENU_ITEM;
+    }
+    if (this.userRole === 2) {
+      return this.MENU_ITEM;
+    }
+    if (this.userRole === 3) {
+      return this.MENU_ITEM;
+    }
   }
 
   public selectItem(item) {
     item.forEach(element => {
       if (element.routerLink) {
         element.isActive = this._router.isActive(this._router.createUrlTree(element.routerLink), true);
-        if (element.isActive)
+        if (element.isActive) {
           //this._globalService._isActived(element);
           this._globalService.dataBusChanged('isActived', element);
-      } else if (element.children)
-        this.selectItem(element.children);
+        }
+      } else if (element.children) {
+          this.selectItem(element.children);
+        }
     });
   }
 

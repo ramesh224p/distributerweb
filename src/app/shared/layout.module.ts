@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './shared.module';
@@ -17,6 +18,7 @@ import { RightConfigComponent } from './layouts/right-config/right-config.compon
     imports: [
         CommonModule,
         RouterModule,
+        FormsModule,
         SharedModule
     ],
     providers: [

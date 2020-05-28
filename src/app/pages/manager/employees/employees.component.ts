@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import swal from 'sweetalert2';
 import { EmployeeService } from './employee.service';
@@ -20,38 +20,41 @@ export class EmployeesComponent implements OnInit {
   id: string;
   i: string;
   getid: string;
-  _id:string;
+  _id: string;
   employees: string[] ;
   employee: string[];
   employeesData: Array<any>;
   editForm: FormGroup;
-  firstname:'';
-  lastname:'';
-  email:'';
-  eage:'';
-  address:'';
-  number:'';
+  firstname: '';
+  lastname: '';
+  email: '';
+  eage: '';
+  address: '';
+  number: '';
   emp_first_name: '';
   emp_last_name: '';
   emp_email: '';
   age: '';
   emp_address: '';
-  password:'';
+  password: '';
   emp_number: '';
+  role: any;
+  item: any;
 
 
   constructor(private http: HttpClient, private employeeservice: EmployeeService, private formBuilder: FormBuilder) { 
     this.formEdit();
+    this.role = JSON.parse(localStorage.getItem('userData'))['data1']['emp_role'];
   }
 
-  formEdit(){
+  formEdit() {
     this.editForm = this.formBuilder.group({
       fullName: ['', Validators.required],
       lastName: ['', Validators.required],
       Email: ['', [Validators.required, Validators.email]],
       age: ['', Validators.required],
       address: ['', Validators.required],
-      password: ['', [Validators.required,Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       number: ['', Validators.required]
     });
   }
@@ -60,71 +63,69 @@ export class EmployeesComponent implements OnInit {
     return this.editForm.controls;
   }
 
-  empAdd(){
-    this._id=undefined;
-    this.firstname='';
-    this.lastname='';
-    this.email='';
-    this.eage='';
-    this.address='';
-    this.number='';
+  empAdd() {
+    this._id = undefined;
+    this.firstname = '';
+    this.lastname = '';
+    this.email = '';
+    this.eage = '';
+    this.address = '';
+    this.number = '';
     console.log('empAdd');
   }
 
-  addEmp(){
-    var itemobj={
+  addEmp() {
+    let itemobj = {
       emp_first_name : this.firstname,
       emp_last_name : this.lastname,
-      emp_email:this.email,
-      age:this.eage,
-      emp_address:this.address,
-      emp_number:this.number
+      emp_email: this.email,
+      age: this.eage,
+      emp_address: this.address,
+      emp_number: this.number
     };
 
     // console.log(itemobj)
 
     this.employeeservice.createEmployee(itemobj).subscribe(data => {
       console.log(data);
-      if( data['status'] == true){
+      if ( data['status'] === true) {
         this.employees.push(data['data']['data']);
         console.log(this.employees);
       }
-    })
+    });
   }
 
-  empEdit(item, index){
-    this._id=item.id;
-    this.i=index;
-    console.log(index)
-    console.log(item['id']);
-    this.firstname=item.emp_first_name;
-    this.lastname=item.emp_last_name;
-    this.email=item.emp_email;
-    this.eage=item.age;
-    this.address=item.emp_address;
-    this.number=item.emp_number;
+  empEdit(item, index) {
+    this._id = item.id;
+    this.i = index;
+    this.firstname = item.emp_first_name;
+    this.lastname = item.emp_last_name;
+    this.email = item.emp_email;
+    this.eage = item.age;
+    this.address = item.emp_address;
+    this.number = item.emp_number;
   }
 
-  editEmp(_id, i){
+  editEmp(_id, i) {
     console.log(this._id, this.i);
-    var itemedit={
-      emp_first_name:this.firstname,
-      emp_last_name:this.lastname,
-      emp_email:this.email,
-      age:this.eage,
-      emp_address:this.address,
-      emp_number:this.number
-    }
+    let itemedit = {
+      emp_first_name: this.firstname,
+      emp_last_name: this.lastname,
+      emp_email: this.email,
+      age: this.eage,
+      emp_address: this.address,
+      emp_number: this.number
+    };
     
     console.log(itemedit);
     this.employeeservice.editEmployee(this._id, itemedit).subscribe(data => {
-      if( data['status'] == true){
+      if ( data['status'] === true) {
         console.log(data['data']['data']);
         console.log(this.i);
         // this.employees.push(data['data']['data'] );
         console.log(this.employees);
       }
-    })
+    });
   }
 
   ngOnInit() {
@@ -148,22 +149,27 @@ export class EmployeesComponent implements OnInit {
   }
 
   loadData() {
-    this.employeeservice.getEmployees().subscribe(data => {
-      this.employees = data['data'];
-      console.log(this.employees);
-    })
-   
+    console.log(this.role);
+    if (this.role === 1 || this.role === 2) {
+      this.employeeservice.getEmployees().subscribe(data => {
+        this.employees = data['data'];
+        console.log(this.employees);
+      });
+    } else {
+      this.item = JSON.parse(localStorage.getItem('userData'))['data1'];
+      console.log(this.item);
+    }
   }
 
-  employeesDelete(id, index){
+  employeesDelete(id, index) {
     console.log(id, index);
     this.employeeservice.deleteEmployee(id).subscribe(data => {
-      console.log(this.employees, data)
-      if(data['status'] == true){
+      console.log(this.employees, data);
+      if (data['status'] === true) {
         this.employees.splice(index, 1);
-        console.log(this.employees)
+        console.log(this.employees);
       }
-    })
+    });
   }
 
   pageChanged(pN: number): void {

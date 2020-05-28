@@ -43,12 +43,12 @@ export class GlobalService {
         this.dataSource.next({
             ev: ev,
             value: value
-        })
+        });
     }
 }
 
 
 export class DataSourceClass {
     ev: string;
-    value: any
+    value: any;
 }

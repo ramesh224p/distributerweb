@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { IndexService } from './index.service';
 
@@ -10,7 +10,7 @@ import { IndexService } from './index.service';
   providers: []
 })
 export class IndexComponent implements OnInit {
-  showloading: boolean = false;
+  showloading = false;
 
   private url = `${environment.apiBaseUrl}/v1`;
   employees;
@@ -18,32 +18,35 @@ export class IndexComponent implements OnInit {
 
   public AnimationBarOption;
 
-  constructor(private http: HttpClient, private indexservice:IndexService) { }
+  constructor(private http: HttpClient, private indexservice:  IndexService) { }
 
-  getIndexEmployee(){
+  getIndexEmployee() {
       this.indexservice.getEmployeeData().subscribe(data => {
-          this.employees=Object.keys(data['data']).length
-          console.log(this.employees);
-        })
+        // console.log(data);
+        if (data['status'] === true) {
+        this.employees = data['data'].length;
+        // console.log(this.employees);
+        } else {
+          this.employees = 0;
+        }
+      });
   }
 
-  getIndexcomplaint(){
+  getIndexcomplaint() {
     this.indexservice.getBranchesData().subscribe(data => {
-        this.branches=Object.keys(data['data']).length
-        console.log(this.branches);
-      })
+      // console.log(data);
+      if (data['status'] === true) {
+        this.branches = data['data'].length;
+        // console.log(this.branches);
+      } else {
+        let user = JSON.parse(localStorage.getItem('userData'));
+        this.branches = 0;
+      }
+      });
   }
 
   ngOnInit() {
     this.getIndexEmployee();
     this.getIndexcomplaint();
-    // this.http.get(`${this.url}/employees`).subscribe(data => {
-    //   this.employees=Object.keys(data['data']).length
-    //   console.log(this.employees);
-    // })
-    // this.http.get(`${this.url}/branches`).subscribe(data => {
-    //   this.branches=Object.keys(data['data']).length
-    //   console.log(this.branches);
-    // })
   }
 }

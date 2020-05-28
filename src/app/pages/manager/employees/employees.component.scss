@@ -20,6 +20,10 @@
     }
 }
 
+.right{
+    float: right;
+}
+
 .my-pagination /deep/ .ngx-pagination {
     border: 1px solid $border-color;
     border-radius: 5px;

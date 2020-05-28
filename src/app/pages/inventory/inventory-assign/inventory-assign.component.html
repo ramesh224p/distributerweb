@@ -1,0 +1,85 @@
+<div class="col-md-6" >
+  <div class="form-group">
+    <label class="control-label" >Branch</label>
+    <select name="select" id="select1" class="form-control" [(ngModel)]="branchSelect">
+      <option value="1">RC Puram</option>
+      <option value="2">LIG</option>
+      <option value="3">HIG</option>
+      <option value="4">MIG</option>
+    </select>
+
+    <label class="control-label">Vehicle Number</label>
+      <input type="text" class="form-control" placeholder="Text Input" [(ngModel)]="vehicleNum">
+
+    <label class="control-label" >Assign Quantity</label>
+    <div class="input-group">
+      <input class="form-control with-success-addon" placeholder="quantity number" type="number" [(ngModel)]="checks">
+        <span class="input-group-addon"><button class="btn btn-info" (click)="[fifthModal.open(), inventoryData()]">
+          <i class="fas fa-mobile"></i>
+        </button>
+      </span>
+    </div>
+
+    <label class="control-label">Status</label>
+    <select name="select" id="status1" class="form-control" placeholder="status" [(ngModel)]="status">
+      <option value="1">Processing</option>
+      <option value="2">Rejected</option>
+      <option value="3">Sucess</option>
+    </select>
+
+    <label class="control-label" *ngIf="status == 2">Comments</label>
+      <input type="text" class="form-control" placeholder="Text Input" *ngIf="status == 2">
+
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered table-hover">        
+        <tbody>
+          <tr *ngFor="let phone of selectedPhones | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+            <td>{{index+1}}</td>
+            <td>{{phone.brand}}</td>
+            <td>{{phone.memory_GB}}</td>
+            <td>{{phone.ram_GB}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button [ngClass]="{'not-allowed': selectedPhones.length === 0}" class="btn btn-icon btn-success right" (click)="phonesSelected()">Submit</button>
+    </div>
+  </div>  
+</div>
+
+<modal #fifthModal modalClass="modal-lg">
+  <modal-header>
+    <h3>Select Mobile</h3>
+  </modal-header>
+  <modal-content>
+        <div class="form-group">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>BRAND NAME</th>
+                  <th>MEMORY GB</th>
+                  <th>RAM GB</th>
+                  <th>SELECT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of inventory | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+                  <td>{{index+1}}</td>
+                  <td>{{item.brand}}</td>
+                  <td>{{item.memory_GB}}</td>
+                  <td>{{item.ram_GB}}</td>
+                  <td><input class="checkbox check-label" name="saveUserNameCheckBox"  type="checkbox" [(ngModel)]="item.active"  (click)="selectedItem(item)" >
+                    <!-- <label class="check-label" for="{{item.id}}" (click)="check(item)"></label> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-success" (click)="selectMobile(fifthModal)">Submit</button>
+    <button class="btn btn-icon btn-danger" (click)="closeModal(fifthModal)">close</button>
+  </modal-footer>
+</modal>

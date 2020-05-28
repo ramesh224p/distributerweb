@@ -1,5 +1,7 @@
 import {AfterViewInit, Component, Input} from '@angular/core';
 import {GlobalService} from '../../services/global.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'pages-top',
@@ -11,11 +13,40 @@ export class PagesTopComponent implements AfterViewInit {
   userName: string = 'Ramesh';
   userPost: string = 'FrontEnd';
 
+  private url = `${environment.apiBaseUrl}/v1`;
+  employees: [];
 
   sidebarToggle: boolean = true;
   tip = {ring: true, email: true};
 
-  constructor(private _globalService: GlobalService) {
+  constructor(private _globalService: GlobalService, private http: HttpClient) {
+    this.http.get(`${this.url}/employees`).subscribe(data => {
+      // console.log(data);
+      this.employees = data['data'];
+    });
+  }
+
+  private _serachemp: string;
+  filteredEmployees;
+
+  get searchemp(): string {
+    return this._serachemp;
+  }
+
+  set serachemp(val: string)  {
+    this._serachemp = val;
+    this.filteredEmployees = this.filteredEmployee(val);
+  }
+
+  filteredEmployee(searchemps: string) {
+    // return this.employees.filter(employee => 
+      // employee.emp_first_name.ToLowerCase().indexOf(searchemps.toLowerCase()) !== -1);
+  }
+
+  empsearch() {
+    console.log( 'hi' );
+    
+
   }
 
   public _sidebarToggle() {

@@ -1,3 +1,90 @@
-<p>
-  complaints works!
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <!-- <card cardTitle="Data Table"> -->
+      <button class="btn btn-success right" (click)="[fifthModal.open(), compAdd()]">
+        <i class="fa fa-plus-circle" aria-hidden="true">ADD</i>
+      </button>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>COMPLAINEE ID</th>
+            <th>COMPLAINTS</th>
+            <th>STATUS</th>
+            <th>CREATED DATE</th>
+            <th>EDIT</th>
+            <th>DELETE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of complaints | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+            <td>{{index+1}}</td>
+            <td>{{item.emp_id}}</td>
+            <td>{{item.complaints_}}</td>
+            <td>{{item.status}}</td>
+            <td>{{item.created_date }}</td>
+            <td>
+              <!-- <card cardTitle="modal sizes"> -->
+              <button class="btn btn-primary" (click)="[fifthModal.open(), compEdit(item, index)]">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+            <!-- </card> -->     
+            </td>
+            <td>
+              <button class="btn btn-icon btn-danger" (click)="complaintsDelete(item.id, index)">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <form class="pagination-wrapper">
+        <div class="form-group pages">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true"
+            autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+        <div class="form-group options pages">
+          <div class="input-group input-group-sm">
+            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
+              <option>1</option>
+              <option>5</option>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+              <option>200</option>
+            </select>
+            <span class="input-group-addon addon-right">Per Page</span>
+          </div>
+        </div>
+      </form>
+    <!-- </card> -->
+  </div>
+</div>
+
+<modal #fifthModal modalClass="modal-lg">
+  <modal-header>
+    <h3>Edit Employee</h3>
+  </modal-header>
+  <modal-content>
+    <!-- <card cardTitle="Input Types" isCollapse="true"> -->
+        <div class="form-group">
+          <label class="control-label" *ngIf="!_id" >Employee ID</label>
+            <input type="text" class="form-control" [(ngModel)]="employee" *ngIf="!_id" placeholder=" your id ">
+
+          <label class="control-label" >Complaint</label>
+            <input type="text" class="form-control" [(ngModel)]="complaint" placeholder="enter the complaint">
+
+        
+        <button class="btn btn-primary right" (click)="editComp(item, index, employee, complaint)" *ngIf="_id">EDIT</button>
+        <button class="btn btn-success right" (click)="addComp(item, employee, complaint)" *ngIf="!_id">ADD</button>
+    <!-- </card> -->
+        </div>
+  </modal-content>
+  
+  <modal-footer>
+    <button class="btn btn-icon btn-danger" (click)="closeModal(fifthModal)">close</button>
+  </modal-footer>
+</modal>

@@ -5,11 +5,12 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class IndexService {
     private url = `${environment.apiBaseUrl}/v1`;
-    constructor(private http: HttpClient){}
-    getEmployeeData(){
+    constructor(private http: HttpClient) {}
+
+    getEmployeeData() {
         return this.http.get(`${this.url}/employees`);
     }
-    getBranchesData(){
+    getBranchesData() {
         return this.http.get(`${this.url}/branches`);
     }
 }
