@@ -1,14 +1,14 @@
 <div class="row">
   <div class="col-md-12">
     <!-- <card cardTitle="Data Table"> -->
-      <button class="btn btn-success right" (click)="[fifthModal.open(), indentpopAdd()]">
+      <button class="btn btn-success right" (click)="[fifthModal.open(), inventoryspopAdd()]">
         <i class="fa fa-plus-circle" aria-hidden="true">ADD</i>
       </button>
       <table class="table table-bordered">
         <thead>
           <tr>
             <th>ID</th>
-            <th>BRANCH CODE</th>
+            <th>MOBILE BRAND</th>
             <th>MEMORY GB</th>
             <th>RAM GB</th>
             <th>QUANTITY</th>
@@ -20,20 +20,20 @@
         <tbody>
           <tr *ngFor="let item of inventorys | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
             <td>{{index+1}}</td>
-            <td>{{item.brand}}</td>
-            <td>{{item.memory_GB}}</td>
-            <td>{{item.ram_GB}}</td>
+            <td>{{item.mobile_brands}}</td>
+            <td>{{item.memory_gb}}</td>
+            <td>{{item.ram_gb}}</td>
             <td>{{item.quantity}}</td>
             <td>{{item.status}}</td>
             <td>
               <!-- <card cardTitle="modal sizes"> -->
-              <button class="btn btn-primary" (click)="[fifthModal.open(), indentpopEdit(item, index)]">
+              <button class="btn btn-primary" (click)="[fifthModal.open(), inventoryspopEdit(item, index)]">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
             <!-- </card> -->     
             </td>
             <td>
-              <button class="btn btn-icon btn-danger" (click)="indentDelete(item.id, index)">
+              <button class="btn btn-icon btn-danger" (click)="inventorysDelete(item.id, index)">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </button>
             </td>
@@ -73,7 +73,7 @@
   <modal-content>
     <!-- <card cardTitle="Input Types" isCollapse="true"> -->
         <div class="form-group">
-          <label class="control-label">Branch Id</label>
+          <label class="control-label">Brand</label>
             <input type="text" class="form-control" [(ngModel)]="brands" placeholder="enter brand">
 
           <label class="control-label">Memory GB</label>
@@ -82,8 +82,11 @@
           <label class="control-label">Ram GB</label>
           <input type="text" class="form-control" [(ngModel)]="ramgb" placeholder="ram in gb">
 
-          <button class="btn btn-primary right" (click)="editIndent(item, index, brands, memorygb, ramgb, quantity)" *ngIf="_id">EDIT</button>
-          <button class="btn btn-success right" (click)="addIndent(item, brands, memorygb, ramgb, quantity)" *ngIf="!_id">ADD</button>
+          <label class="control-label" *ngIf="!_id">EMI Number</label>
+            <input type="text" class="form-control" [(ngModel)]="emi" placeholder="enter emi number" *ngIf="!_id">
+
+          <button class="btn btn-primary right" (click)="editInventorys(item, index, brands, memorygb, ramgb)" *ngIf="_id">EDIT</button>
+          <button class="btn btn-success right" (click)="addInventorys(item, brands, emi, memorygb, ramgb)" *ngIf="!_id">ADD</button>
     <!-- </card> -->
         </div>
   </modal-content>

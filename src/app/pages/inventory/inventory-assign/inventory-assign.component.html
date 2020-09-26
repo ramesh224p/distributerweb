@@ -37,9 +37,9 @@
         <tbody>
           <tr *ngFor="let phone of selectedPhones | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
             <td>{{index+1}}</td>
-            <td>{{phone.brand}}</td>
-            <td>{{phone.memory_GB}}</td>
-            <td>{{phone.ram_GB}}</td>
+            <td>{{phone.mobile_brands}}</td>
+            <td>{{phone.memory_gb}}</td>
+            <td>{{phone.ram_gb}}</td>
           </tr>
         </tbody>
       </table>
@@ -67,9 +67,9 @@
               <tbody>
                 <tr *ngFor="let item of inventory | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
                   <td>{{index+1}}</td>
-                  <td>{{item.brand}}</td>
-                  <td>{{item.memory_GB}}</td>
-                  <td>{{item.ram_GB}}</td>
+                  <td>{{item.mobile_brands}}</td>
+                  <td>{{item.memory_gb}}</td>
+                  <td>{{item.ram_gb}}</td>
                   <td><input class="checkbox check-label" name="saveUserNameCheckBox"  type="checkbox" [(ngModel)]="item.active"  (click)="selectedItem(item)" >
                     <!-- <label class="check-label" for="{{item.id}}" (click)="check(item)"></label> -->
                   </td>

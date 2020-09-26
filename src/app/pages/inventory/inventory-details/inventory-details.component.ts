@@ -24,12 +24,13 @@ export class InventoryDetailsComponent implements OnInit {
   editForm: FormGroup;
   memorygb: '';
   brands: '';
-  ram_GB: '';
-  quantitys: '';
-  memory_GB;
-  brand: '';
+  ram_gb: '';
+  memory_gb: '';
+  mobile_brands: '';
   ramgb: '';
-  quantity: '';
+  status : '';
+  quantity : '';
+  emi : '';
 
 
   constructor(private http: HttpClient, private inventorydetailsservice: InventoryDetailsService, private formBuilder: FormBuilder) { 
@@ -55,26 +56,23 @@ export class InventoryDetailsComponent implements OnInit {
     this.brands = '';
     this.memorygb = '';
     this.ramgb = '';
-    this.quantitys = '';
-    console.log('empAdd');
+    this.emi = '';
   }
 
-  addinventorys() {
+  addInventorys() {
     let itemobj = {
       
-      brand : this.brands,
-      memory_GB : this.memorygb,
-      ram_GB: this.ramgb,
-      quantity: this.quantitys
+      mobile_brands : this.brands,
+      memory_gb : this.memorygb,
+      ram_gb: this.ramgb,
+      emi_number : this.emi,
+      status : 1,
+      quantity : 1
     };
 
-    console.log(itemobj);
-
     this.inventorydetailsservice.createInventory(itemobj).subscribe(data => {
-      console.log(data);
       if ( data['status'] === true) {
         this.inventorys.push(data['data']['data']);
-        console.log(this.inventorys);
       }
     });
   }
@@ -82,30 +80,28 @@ export class InventoryDetailsComponent implements OnInit {
   inventoryspopEdit(item, index) {
     this._id = item.id;
     this.i = index;
-    console.log(index);
-    console.log(item['id']);
-    this.memorygb = item.memory_GB;
-    this.brands = item.brand;
-    this.ramgb = item.ram_GB;
-    this.quantitys = item.quantity;
+    this.memorygb = item.memory_gb;
+    this.brands = item.mobile_brands;
+    this.ramgb = item.ram_gb;
   }
 
-  editinventorys(_id, i) {
-    console.log(this._id, this.i);
+  editInventorys(_id, i, index) {
     let itemedit = {
-      memory_GB: this.memorygb,
-      brand: this.brands,
-      ram_GB: this.ramgb,
-      quantity: this.quantitys
-    };
+      memory_gb: this.memorygb,
+      mobile_brands: this.brands,
+      ram_gb: this.ramgb,
+    }; 
     
-    console.log(itemedit);
     this.inventorydetailsservice.editInventory(this._id, itemedit).subscribe(data => {
       if ( data['status'] ===  true) {
+        this.loadData();
         console.log(data['data']['data']);
-        console.log(this.i);
-        // this.inventorys.push(data['data']['data'] );
+        console.log(this._id)
+        // this.inventorys.push(this._id, data['data']['data'])
         console.log(this.inventorys);
+        // this.inventorydetailsservice.getInventory().subscribe(data => {
+        //   this.inventorys = data['data'];
+        // });
       }
     });
   }
@@ -133,17 +129,14 @@ export class InventoryDetailsComponent implements OnInit {
   loadData() {
     this.inventorydetailsservice.getInventory().subscribe(data => {
       this.inventorys = data['data'];
-      console.log(this.inventorys);
+      console.log(data['data']);
     });
   }
 
   inventorysDelete(id, index) {
-    console.log(id, index);
     this.inventorydetailsservice.deleteInventory(id).subscribe(data => {
-      console.log(this.inventorys, data);
       if (data['status'] === true) {
         this.inventorys.splice(index, 1);
-        console.log(this.inventorys);
       }
     });
   }
@@ -151,6 +144,4 @@ export class InventoryDetailsComponent implements OnInit {
   pageChanged(pN: number): void {
     this.pageNumber = pN;
   }
-
-
 }

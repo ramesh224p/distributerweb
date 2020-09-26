@@ -71,7 +71,6 @@ export class EmployeesComponent implements OnInit {
     this.eage = '';
     this.address = '';
     this.number = '';
-    console.log('empAdd');
   }
 
   addEmp() {
@@ -84,13 +83,9 @@ export class EmployeesComponent implements OnInit {
       emp_number: this.number
     };
 
-    // console.log(itemobj)
-
     this.employeeservice.createEmployee(itemobj).subscribe(data => {
-      console.log(data);
       if ( data['status'] === true) {
         this.employees.push(data['data']['data']);
-        console.log(this.employees);
       }
     });
   }
@@ -107,7 +102,6 @@ export class EmployeesComponent implements OnInit {
   }
 
   editEmp(_id, i) {
-    console.log(this._id, this.i);
     let itemedit = {
       emp_first_name: this.firstname,
       emp_last_name: this.lastname,
@@ -117,13 +111,11 @@ export class EmployeesComponent implements OnInit {
       emp_number: this.number
     };
     
-    console.log(itemedit);
     this.employeeservice.editEmployee(this._id, itemedit).subscribe(data => {
       if ( data['status'] === true) {
-        console.log(data['data']['data']);
-        console.log(this.i);
-        // this.employees.push(data['data']['data'] );
-        console.log(this.employees);
+        this.employeeservice.getEmployees().subscribe(data => {
+          this.employees = data['data'];
+        });
       }
     });
   }
@@ -149,25 +141,20 @@ export class EmployeesComponent implements OnInit {
   }
 
   loadData() {
-    console.log(this.role);
+
     if (this.role === 1 || this.role === 2) {
       this.employeeservice.getEmployees().subscribe(data => {
         this.employees = data['data'];
-        console.log(this.employees);
       });
     } else {
       this.item = JSON.parse(localStorage.getItem('userData'))['data1'];
-      console.log(this.item);
     }
   }
 
   employeesDelete(id, index) {
-    console.log(id, index);
     this.employeeservice.deleteEmployee(id).subscribe(data => {
-      console.log(this.employees, data);
       if (data['status'] === true) {
         this.employees.splice(index, 1);
-        console.log(this.employees);
       }
     });
   }

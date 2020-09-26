@@ -21,16 +21,14 @@ export class InventoryAssignComponent implements OnInit {
   saveUsername: boolean;
   tableData = [];
   selectedPhones = [];
-  emp_id ;
-  assign_emp_id ;
+  emp_id : '' ;
+  assign_emp_id : '';
   object = [];
-  branchSelect;
-  vehicleNum;
+  branchSelect : '';
+  vehicleNum : '';
 
   ngOnInit() {
-    this.http.get(`${this.url}/inventory?status=` + this.statuss).subscribe(data => {
-      this.inventory = data['data'];
-    });
+    
   }
 
   openModal(index, item, modal) {
@@ -55,7 +53,9 @@ export class InventoryAssignComponent implements OnInit {
   }
 
   inventoryData(method: string) {
-    
+    this.http.get(`${this.url}/inventory?status=` + this.statuss).subscribe(data => {
+      this.inventory = data['data'];
+    });
   }
 
   selectedItem(selectedItem: any) {
@@ -65,6 +65,7 @@ export class InventoryAssignComponent implements OnInit {
       this.tableData.forEach( (item, index) => {
           if (item.id === selectedItem.id) {
             this.tableData.splice(index, 1);
+            console.log(this.tableData);
             return ;
           }
           if (this.tableData.length - 1 === index) {
@@ -75,12 +76,14 @@ export class InventoryAssignComponent implements OnInit {
   }
 
   selectMobile(modal) {
+    console.log(modal);
     this.selectedPhones = this.tableData;
     modal.close();
   }
 
   phonesSelected() {
-    this.emp_id = JSON.parse(localStorage.getItem('userData'))['id'];
+    this.emp_id = JSON.parse(localStorage.getItem('userData'))['data1']['id'];
+    console.log(this.emp_id)
 
     this.tableData.forEach( (element) => {
       console.log(element['id']);
@@ -95,7 +98,7 @@ export class InventoryAssignComponent implements OnInit {
 
       console.log(object);
 
-    this.http.post(`${this.url}/inventory-assign`, object).subscribe(data => {
+    this.http.post(`${this.url}/inventory_assign`, object).subscribe(data => {
       console.log(data);
     });
 

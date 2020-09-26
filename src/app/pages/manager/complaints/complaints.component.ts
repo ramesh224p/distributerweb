@@ -20,12 +20,12 @@ export class ComplaintsComponent implements OnInit {
   id: string;
   i: string;
   _id: string;
-  complaints: string[] ;
-  employee;
-  complaint;
+  complaintes: string[] ;
+  employee : '';
+  complaint: '';
   editForm: FormGroup;
-  emp_id;
-  complaints_;
+  emp_id: '';
+  complaints : '';
 
 
   constructor(private http: HttpClient, private complaintservice: ComplaintService, private formBuilder: FormBuilder) { 
@@ -46,22 +46,17 @@ export class ComplaintsComponent implements OnInit {
     this._id = undefined;
     this.employee = '';
     this.complaint = '';
-    console.log('empAdd');
   }
 
   addComp() {
     let itemobj = {
       emp_id : this.employee,
-      complaints_ : this.complaint,
+      complaints : this.complaint,
     };
 
-    // console.log(itemobj)
-
     this.complaintservice.createComplaints(itemobj).subscribe(data => {
-      console.log(data);
       if ( data['status'] === true) {
-        this.complaints.push(data['data']['data']);
-        console.log(this.complaints);
+        this.complaintes.push(data['data']['data']);
       }
     });
   }
@@ -69,27 +64,23 @@ export class ComplaintsComponent implements OnInit {
   compEdit(item, index) {
     this._id = item.id;
     this.i = index;
-    console.log(index);
-    console.log(item['id']);
     this.employee = item.emp_id;
-    this.complaint = item.complaints_;
+    this.complaint = item.complaints;
 
   }
 
   editComp(_id, i) {
-    console.log(this._id, this.i);
     let itemedit = {
       emp_id : this.employee,
-      complaints_ : this.complaint,
+      complaints : this.complaint,
     };
     
-    console.log(itemedit);
     this.complaintservice.editComplaints(this._id, itemedit).subscribe(data => {
       if ( data['status'] === true) {
-        console.log(data['data']['data']);
-        console.log(this.i);
-        // this.complaints.push(data['data']['data'] );
-        console.log(this.complaints);
+        console.log(this.closeModal);
+        this.complaintservice.getComplaints().subscribe(data => {
+          this.complaintes = data['data'];
+        })
       }
     });
   }
@@ -116,18 +107,14 @@ export class ComplaintsComponent implements OnInit {
 
   loadData() {
     this.complaintservice.getComplaints().subscribe(data => {
-      this.complaints = data['data'];
-      console.log(this.complaints);
+      this.complaintes = data['data'];
     });
   }
 
   complaintsDelete(id, index) {
-    console.log(id, index);
     this.complaintservice.deleteComplaints(id).subscribe(data => {
-      console.log(this.complaints, data);
       if (data['status'] === true) {
-        this.complaints.splice(index, 1);
-        console.log(this.complaints);
+        this.complaintes.splice(index, 1);
       }
     });
   }

@@ -141,6 +141,7 @@ export class BranchesComponent implements OnInit {
   loadData() {
     this.branchesservice.getBranches().subscribe(data => {
       this.branches = data['data'];
+      console.log(data);
       console.log(this.branches);
     });
   }
