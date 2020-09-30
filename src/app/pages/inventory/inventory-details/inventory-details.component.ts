@@ -20,7 +20,7 @@ export class InventoryDetailsComponent implements OnInit {
   id: string;
   i: string;
   _id: string;
-  inventorys: string[] ;
+  inventorys;
   editForm: FormGroup;
   memorygb: '';
   brands: '';
@@ -94,14 +94,10 @@ export class InventoryDetailsComponent implements OnInit {
     
     this.inventorydetailsservice.editInventory(this._id, itemedit).subscribe(data => {
       if ( data['status'] ===  true) {
-        this.loadData();
+        // this.loadData();
         console.log(data['data']['data']);
-        console.log(this._id)
-        // this.inventorys.push(this._id, data['data']['data'])
+        console.log(i);
         console.log(this.inventorys);
-        // this.inventorydetailsservice.getInventory().subscribe(data => {
-        //   this.inventorys = data['data'];
-        // });
       }
     });
   }
@@ -128,8 +124,10 @@ export class InventoryDetailsComponent implements OnInit {
 
   loadData() {
     this.inventorydetailsservice.getInventory().subscribe(data => {
-      this.inventorys = data['data'];
-      console.log(data['data']);
+      if ( data['status'] === true ){
+        this.inventorys = data['data'];
+        console.log(data['data']);
+      }
     });
   }
 
