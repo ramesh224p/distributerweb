@@ -1,3 +1,46 @@
-<p>
-  attendance works!
-</p>
+<div>
+<div class="card card-block login-card" *ngIf="emp_id != 0">
+  <h3 class="form-label">Attendance</h3>
+  <span class="form-label">sign in to mark your Attendance</span>
+    <div class="form-group">
+      <div class="input-group" >
+        <span class="input-group-addon addon-left" id="username">
+          <i class="fa fa-user fa-fw"></i>
+        </span>
+        <input [(ngModel)]="emails" id="email" class="form-control with-primary-addon" placeholder="Email" type="text">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon addon-left" id="password">
+          <i class="fa fa-lock fa-fw"></i>
+        </span>
+        <input class="form-control with-primary-addon" [(ngModel)]="passwords"  placeholder="Password" type="password" id="password">
+      </div>
+      <button class="btn btn-lg btn-primary" (click)="attendanceLogin()">Submit</button>
+    </div>
+</div>
+<div class="row" *ngIf="attendance.emp_name">
+  <div class="col-md-12">
+    <!-- <card cardTitle="Data Table"> -->
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Employee Name</th>
+            <th>Employee ID</th>
+            <th>LOG-OUT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{attendance.emp_name}}</td>
+            <td>{{attendance.emp_id}}</td>
+            <td>
+              <button class="btn btn-icon btn-danger" (click)="logout()">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+</div>

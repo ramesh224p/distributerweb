@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AttendanceRoutingModule } from './attendance-routing.module';
 import { AttendanceComponent } from './attendance/attendance.component';
@@ -8,7 +10,10 @@ import { AttendanceComponent } from './attendance/attendance.component';
   declarations: [AttendanceComponent],
   imports: [
     CommonModule,
-    AttendanceRoutingModule
+    AttendanceRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AttendanceModule { }
