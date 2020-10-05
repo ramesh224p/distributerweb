@@ -54,10 +54,14 @@ export class ComplaintsComponent implements OnInit {
       complaints : this.complaint,
     };
 
+    console.log(itemobj);
+
     this.complaintservice.createComplaints(itemobj).subscribe(data => {
       if ( data['status'] === true) {
         this.complaintes.push(data['data']['data']);
+        console.log(data);
       }
+      console.log("hi");
     });
   }
 

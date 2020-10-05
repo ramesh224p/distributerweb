@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-attendance',
@@ -20,9 +21,10 @@ export class AttendanceComponent implements OnInit {
   passwords;
   attendance = [];
   user;
-  logout_time;
+  status;
   attnd_id;
   emp_id;
+  time;
   emp_name: '';
   public emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
   loginForm: FormGroup;
@@ -65,14 +67,12 @@ export class AttendanceComponent implements OnInit {
   }
 
   logout() {
-    this.logout_time = Date.now();
-    console.log(this.attnd_id, this.logout_time);
-    this.http.put(`${this.url}/attendance/`+this.attnd_id, this.logout_time ).subscribe(data =>{
+    this.status = "2";
+    this.http.put(`${this.url}/attendance/`+this.attnd_id, this.status ).subscribe(data =>{
       console.log(data['data']['data']);
+      this.emp_id = 0;
+      this.router.navigate(['/pages/index']);
     })
-    console.log(this.logout_time);
-    this.emp_id = 0;
-    this.router.navigate(['/pages/index']);
   }
 
 }

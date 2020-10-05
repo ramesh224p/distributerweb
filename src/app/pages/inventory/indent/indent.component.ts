@@ -23,12 +23,13 @@ export class IndentComponent implements OnInit {
   editForm: FormGroup;
   memorygb: '';
   branchid: '';
-  Ram_GB: '';
-  quantitys: '';
-  Memory_GB;
+  branch_id: '';
+  ram_gb: '';
+  quantitys: '1';
+  memory_gb;
   branch: '';
   ramgb: '';
-  Quantity: '';
+  quantity: '';
 
 
   constructor(private http: HttpClient, private indentservice: IndentService, private formBuilder: FormBuilder) { 
@@ -54,26 +55,21 @@ export class IndentComponent implements OnInit {
     this.branchid = '';
     this.memorygb = '';
     this.ramgb = '';
-    this.quantitys = '';
-    console.log('empAdd');
+    this.quantitys = '1';
   }
 
   addIndent() {
     let itemobj = {
       
-      branch : this.branchid,
-      Memory_GB : this.memorygb,
-      Ram_GB: this.ramgb,
-      Quantity: this.quantitys
+      branch_id : this.branchid,
+      memory_gb : this.memorygb,
+      ram_gb: this.ramgb,
+      quantity: this.quantitys
     };
 
-    console.log(itemobj);
-
     this.indentservice.createIndent(itemobj).subscribe(data => {
-      console.log(data);
       if ( data['status'] === true) {
         this.indent.push(data['data']['data']);
-        console.log(this.indent);
       }
     });
   }
@@ -81,30 +77,23 @@ export class IndentComponent implements OnInit {
   indentpopEdit(item, index) {
     this._id = item.id;
     this.i = index;
-    console.log(index);
-    console.log(item['id']);
-    this.memorygb = item.Memory_GB;
-    this.branchid = item.branch;
-    this.ramgb = item.Ram_GB;
-    this.quantitys = item.Quantity;
+    this.memorygb = item.memory_gb;
+    this.branchid = item.branch_id;
+    this.ramgb = item.ram_gb;
+    this.quantitys = item.quantity;
   }
 
   editIndent(_id, i) {
-    console.log(this._id, this.i);
     let itemedit = {
-      Memory_GB: this.memorygb,
-      branch: this.branchid,
-      Ram_GB: this.ramgb,
-      Quantity: this.quantitys
+      memory_gb: this.memorygb,
+      branch_id: this.branchid,
+      ram_gb: this.ramgb,
+      quantity: this.quantitys
     };
     
-    console.log(itemedit);
     this.indentservice.editIndent(this._id, itemedit).subscribe(data => {
       if ( data['status'] === true) {
-        console.log(data['data']['data']);
-        console.log(this.i);
         // this.indent.push(data['data']['data'] );
-        console.log(this.indent);
       }
     });
   }
@@ -132,17 +121,13 @@ export class IndentComponent implements OnInit {
   loadData() {
     this.indentservice.getIndent().subscribe(data => {
       this.indent = data['data'];
-      console.log(this.indent);
     });
   }
 
   indentDelete(id, index) {
-    console.log(id, index);
     this.indentservice.deleteIndent(id).subscribe(data => {
-      console.log(this.indent, data);
       if (data['status'] === true) {
         this.indent.splice(index, 1);
-        console.log(this.indent);
       }
     });
   }

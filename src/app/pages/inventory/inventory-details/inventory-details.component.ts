@@ -66,11 +66,13 @@ export class InventoryDetailsComponent implements OnInit {
       memory_gb : this.memorygb,
       ram_gb: this.ramgb,
       emi_number : this.emi,
-      status : 1,
-      quantity : 1
+      status : '1',
+      quantity : '1'
     };
+    console.log(itemobj)
 
     this.inventorydetailsservice.createInventory(itemobj).subscribe(data => {
+      console.log(data);
       if ( data['status'] === true) {
         this.inventorys.push(data['data']['data']);
       }

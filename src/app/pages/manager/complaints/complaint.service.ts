@@ -15,22 +15,16 @@ export class ComplaintService {
     return this.http.get(`${this.url}/complaints`);
   }
 
-  createComplaints(itemobj) {
-    let httpheaders = new HttpHeaders()
-      .set('content-type', 'application/json');
-    let options = {
-      headers: httpheaders
-    };
-    return this.http.post(`${this.url}/complaints`, itemobj, options);
+  createComplaints(itemobj){
+    return this.http.post( `${this.url}/complaints`, itemobj);
   }
 
+  // createComplaints(itemobj) {
+  //   return this.http.post(`${this.url}/complaints`, itemobj);
+  // }
+
   editComplaints(id, itemedit) {
-    let httpheaders = new HttpHeaders()
-      .set('content-type', 'application/json');
-    let options = {
-      headers: httpheaders
-    };
-  return this.http.put(`${this.url}/complaints/` + id, itemedit, options);
+  return this.http.put(`${this.url}/complaints/` + id, itemedit);
   }
 
   deleteComplaints(id) {

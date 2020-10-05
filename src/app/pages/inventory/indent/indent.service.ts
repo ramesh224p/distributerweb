@@ -12,27 +12,15 @@ export class IndentService {
   constructor(private http: HttpClient) { }
 
   getIndent(){
-    console.log(`${this.url}/indents`);
-    console.log('hi')
     return this.http.get(`${this.url}/indents`);
   }
 
   createIndent(itemobj){
-    let httpheaders= new HttpHeaders()
-      .set('content-type','application/json');
-    let options={
-      headers:httpheaders
-    }
-    return this.http.post(`${this.url}/indents`, itemobj, options);
+    return this.http.post(`${this.url}/indents`, itemobj);
   }
 
   editIndent(id, itemedit){
-    let httpheaders= new HttpHeaders()
-      .set('content-type','application/json');
-    let options={
-      headers:httpheaders
-    }
-  return this.http.put(`${this.url}/indents/`+id, itemedit, options);
+  return this.http.put(`${this.url}/indents/`+id, itemedit);
   }
 
   deleteIndent(id){

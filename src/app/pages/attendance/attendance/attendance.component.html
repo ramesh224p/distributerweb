@@ -26,6 +26,7 @@
           <tr>
             <th>Employee Name</th>
             <th>Employee ID</th>
+            <th>Break</th>
             <th>LOG-OUT</th>
           </tr>
         </thead>
@@ -33,6 +34,11 @@
           <tr>
             <td>{{attendance.emp_name}}</td>
             <td>{{attendance.emp_id}}</td>
+            <td>
+              <button class="btn btn-icon btn-danger">
+                <i class="fa fa-coffee" aria-hidden="true"></i>
+              </button>
+            </td>
             <td>
               <button class="btn btn-icon btn-danger" (click)="logout()">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>

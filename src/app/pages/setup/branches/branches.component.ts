@@ -36,7 +36,7 @@ export class BranchesComponent implements OnInit {
   age: '';
   eaddress: '';
   password: '';
-  mobile_number: '';
+  landline_number: '';
 
 
   constructor(private http: HttpClient, private branchesservice: BranchesService, private formBuilder: FormBuilder) { 
@@ -73,7 +73,7 @@ export class BranchesComponent implements OnInit {
       branch_code : this.branchcode,
       branch_name : this.branchname,
       address: this.address,
-      mobile_number: this.number
+      landline_number: this.number
     };
 
     console.log(itemobj);
@@ -95,7 +95,7 @@ export class BranchesComponent implements OnInit {
     this.branchname = item.branch_name;
     this.branchcode = item.branch_code;
     this.address = item.address;
-    this.number = item.mobile_number;
+    this.number = item.landline_number;
   }
 
   editBranch(_id, i) {
@@ -104,7 +104,7 @@ export class BranchesComponent implements OnInit {
       branch_name: this.branchname,
       branch_code: this.branchcode,
       address: this.address,
-      mobile_number: this.number
+      landline_number: this.number
     };
     
     console.log(itemedit);
