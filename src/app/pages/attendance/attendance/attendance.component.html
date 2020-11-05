@@ -35,12 +35,12 @@
             <td>{{attendance.emp_name}}</td>
             <td>{{attendance.emp_id}}</td>
             <td>
-              <button class="btn btn-icon btn-danger">
+              <button class="btn btn-icon btn-danger" (click)="breakTime(attendance.id)">
                 <i class="fa fa-coffee" aria-hidden="true"></i>
               </button>
             </td>
             <td>
-              <button class="btn btn-icon btn-danger" (click)="logout()">
+              <button class="btn btn-icon btn-danger" (click)="logout(attendance.id)">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
               </button>
             </td>

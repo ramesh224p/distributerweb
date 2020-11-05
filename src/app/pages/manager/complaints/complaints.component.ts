@@ -26,6 +26,7 @@ export class ComplaintsComponent implements OnInit {
   editForm: FormGroup;
   emp_id: '';
   complaints : '';
+  length;
 
 
   constructor(private http: HttpClient, private complaintservice: ComplaintService, private formBuilder: FormBuilder) { 

@@ -21,7 +21,9 @@
             <td>{{index+1}}</td>
             <td>{{item.emp_id}}</td>
             <td>{{item.complaints}}</td>
-            <td>{{item.status}}</td>
+            <td *ngIf = "item.status == 1">processing</td>
+            <td *ngIf = "item.status == 2">sucess</td>
+            <td *ngIf = "item.status == 3">pending</td>
             <td>{{item.date_created }}</td>
             <td>
               <!-- <card cardTitle="modal sizes"> -->

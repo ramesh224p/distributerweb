@@ -18,7 +18,9 @@
             <td>{{item.branch_id}}</td>
             <td>{{item.assign_emp_id}}</td>
             <td>{{item.inventory_id}}</td>
-            <td>{{item.shipped_status}}</td>
+            <td *ngIf = "item.shipped_status == 1">Processing</td>
+            <td *ngIf = "item.shipped_status == 2">Rejected</td>
+            <td *ngIf = "item.shipped_status == 3">Sucess</td>
             <td>{{item.shipped_vehicle_number}}</td>
           </tr>
         </tbody>

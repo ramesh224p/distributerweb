@@ -24,7 +24,8 @@
             <td>{{item.work}}</td>
             <td>{{item.address}}</td>
             <td>{{item.mobile_number}}</td>
-            <td>{{item.status}}</td>
+            <td *ngIf = "item.status == 1">Active Member</td>
+            <td *ngIf = "item.status == 2">InActive Member</td>
             <td>
               <!-- <card cardTitle="modal sizes"> -->
               <button class="btn btn-primary" (click)="[fifthModal.open(), financepopEdit(item, index)]">

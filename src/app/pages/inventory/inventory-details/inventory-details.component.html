@@ -24,7 +24,8 @@
             <td>{{item.memory_gb}}</td>
             <td>{{item.ram_gb}}</td>
             <td>{{item.quantity}}</td>
-            <td>{{item.status}}</td>
+            <td *ngIf = "item.status == 1">Avilable</td>
+            <td *ngIf = "item.status == 2">Not Avilable</td>
             <td>
               <!-- <card cardTitle="modal sizes"> -->
               <button class="btn btn-primary" (click)="[fifthModal.open(), inventoryspopEdit(item, index)]">

@@ -128,7 +128,6 @@ export class InventoryDetailsComponent implements OnInit {
     this.inventorydetailsservice.getInventory().subscribe(data => {
       if ( data['status'] === true ){
         this.inventorys = data['data'];
-        console.log(data['data']);
       }
     });
   }

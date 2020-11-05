@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../../../environments/environment';
 import swal from 'sweetalert2';
 
@@ -53,7 +52,9 @@ export class InventoryAssignComponent implements OnInit {
   }
 
   inventoryData(method: string) {
+    console.log(this.statuss);
     this.http.get(`${this.url}/inventory?status=` + this.statuss).subscribe(data => {
+      console.log(data['data']);
       this.inventory = data['data'];
     });
   }
@@ -87,7 +88,6 @@ export class InventoryAssignComponent implements OnInit {
 
     this.tableData.forEach( (element) => {
       console.log(element['id']);
-      // console.log(element.split(','));
       let object = {
         assign_emp_id : this.emp_id ,
         inventory_id : element['id'],

@@ -23,7 +23,8 @@
             <td>{{item.branch_name}}</td>
             <td>{{item.branch_code}}</td>
             <td>{{item.address}}</td>
-            <td>{{item.status}}</td>
+            <td *ngIf = "item.status == 1">Open</td>
+            <td *ngIf = "item.status == 2">Closed</td>
             <td>{{item.landline_number}}</td>
             <td>
               <!-- <card cardTitle="modal sizes"> -->

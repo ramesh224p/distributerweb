@@ -17,11 +17,12 @@ export class AttendanceComponent implements OnInit {
   Password;
   emails;
   email;
+  breaks;
   password;
   passwords;
   attendance = [];
   user;
-  status;
+  statusobj;
   attnd_id;
   emp_id;
   time;
@@ -58,18 +59,33 @@ export class AttendanceComponent implements OnInit {
         this.http.post(`${this.url}/attendance/`, log1).subscribe(data =>{
           console.log(data['data']['result']['insertId']);
           this.attendance = data['data']['data'];
-          this.attnd_id = data['data']['result']['insertId'];
         })
         console.log("sucess");
-        // this.router.navigate(['/pages/index']);
       }
     });
   }
 
-  logout() {
-    this.status = "2";
-    this.http.put(`${this.url}/attendance/`+this.attnd_id, this.status ).subscribe(data =>{
-      console.log(data['data']['data']);
+  breakTime(attnd_id){
+    let breaks = {
+      break : moment(Date.now()).format('DD-MM-YYYY HH:mm:ss')
+    }
+    var str = breaks.break;
+    var p = str.split("-");
+    var date = new Date( p['0'], p['1'],p['2'],p['3'],p['4'],p['5']);
+    console.log(date);
+    console.log(typeof(breaks.break))
+    this.http.put(`${this.url}/attendance/`+this.attnd_id, breaks ).subscribe(data =>{
+      console.log(data);
+    })
+  }
+
+  logout(attnd_id) {
+    let statusobj = {
+      status : 2
+    }
+    console.log(this.attnd_id)
+    this.http.put(`${this.url}/attendance/`+this.attnd_id, statusobj ).subscribe(data =>{
+      console.log(data);
       this.emp_id = 0;
       this.router.navigate(['/pages/index']);
     })

@@ -18,11 +18,7 @@ export class ComplaintService {
   createComplaints(itemobj){
     return this.http.post( `${this.url}/complaints`, itemobj);
   }
-
-  // createComplaints(itemobj) {
-  //   return this.http.post(`${this.url}/complaints`, itemobj);
-  // }
-
+  
   editComplaints(id, itemedit) {
   return this.http.put(`${this.url}/complaints/` + id, itemedit);
   }

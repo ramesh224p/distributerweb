@@ -20,11 +20,13 @@
         <tbody>
           <tr *ngFor="let item of indent | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
             <td>{{index+1}}</td>
-            <td>{{item.branch_id}}</td>
+            <td *ngIf = "item.branch_id == 1">RC Pur</td>
+            <td *ngIf = "item.branch_id == 6">PTC</td>
             <td>{{item.memory_gb}}</td>
             <td>{{item.ram_gb}}</td>
             <td>{{item.quantity}}</td>
-            <td>{{item.status}}</td>
+            <td *ngIf = "item.status == 1">Required</td>
+            <td *ngIf = "item.status == 2">Canceled</td>
             <td>
               <!-- <card cardTitle="modal sizes"> -->
               <button class="btn btn-primary" (click)="[fifthModal.open(), indentpopEdit(item, index)]">
