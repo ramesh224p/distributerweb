@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './shared.module';
+import { ModalModule } from "ngx-modal";
+import { Ng2ImgMaxModule } from 'ng2-img-max';
 
 import { GlobalService } from './services/global.service';
 
@@ -19,6 +21,8 @@ import { RightConfigComponent } from './layouts/right-config/right-config.compon
         CommonModule,
         RouterModule,
         FormsModule,
+        ModalModule,
+        Ng2ImgMaxModule,
         SharedModule
     ],
     providers: [

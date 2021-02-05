@@ -64,25 +64,18 @@ export class BranchesComponent implements OnInit {
     this.emails = '';
     this.address = '';
     this.number = '';
-    console.log('empAdd');
   }
 
   addBranch() {
-    let itemobj = {
-      
+    let itemobj = {      
       branch_code : this.branchcode,
       branch_name : this.branchname,
       address: this.address,
       landline_number: this.number
     };
-
-    console.log(itemobj);
-
     this.branchesservice.createBranch(itemobj).subscribe(data => {
-      console.log(data);
       if (data['status'] === true) {
         this.branches.push(data['data']['data']);
-        console.log(this.branches);
       }
     });
   }
@@ -90,8 +83,6 @@ export class BranchesComponent implements OnInit {
   branchpopEdit(item, index) {
     this._id = item.id;
     this.i = index;
-    console.log(index);
-    console.log(item['id']);
     this.branchname = item.branch_name;
     this.branchcode = item.branch_code;
     this.address = item.address;
@@ -99,21 +90,15 @@ export class BranchesComponent implements OnInit {
   }
 
   editBranch(_id, i) {
-    console.log(this._id, this.i);
     let itemedit = {
       branch_name: this.branchname,
       branch_code: this.branchcode,
       address: this.address,
       landline_number: this.number
     };
-    
-    console.log(itemedit);
     this.branchesservice.editBranch(this._id, itemedit).subscribe(data => {
       if (data['status'] === true) {
-        console.log(data['data']['data']);
-        console.log(this.i);
-        // this.branches.push(data['data']['data'] );
-        console.log(this.branches);
+        this.branches = data['data'];
       }
     });
   }
@@ -141,18 +126,13 @@ export class BranchesComponent implements OnInit {
   loadData() {
     this.branchesservice.getBranches().subscribe(data => {
       this.branches = data['data'];
-      console.log(data);
-      console.log(this.branches);
     });
   }
 
   branchDelete(id, index) {
-    console.log(id, index);
     this.branchesservice.deleteBranch(id).subscribe(data => {
-      console.log(this.branches, data);
       if (data['status'] === true) {
         this.branches.splice(index, 1);
-        console.log(this.branches);
       }
     });
   }

@@ -113,9 +113,7 @@ export class EmployeesComponent implements OnInit {
     
     this.employeeservice.editEmployee(this._id, itemedit).subscribe(data => {
       if ( data['status'] === true) {
-        this.employeeservice.getEmployees().subscribe(data => {
           this.employees = data['data'];
-        });
       }
     });
   }

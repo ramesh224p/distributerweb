@@ -96,10 +96,7 @@ export class InventoryDetailsComponent implements OnInit {
     
     this.inventorydetailsservice.editInventory(this._id, itemedit).subscribe(data => {
       if ( data['status'] ===  true) {
-        // this.loadData();
-        console.log(data['data']['data']);
-        console.log(i);
-        console.log(this.inventorys);
+        this.inventorys = data['data'];
       }
     });
   }

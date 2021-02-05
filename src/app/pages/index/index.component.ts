@@ -22,10 +22,8 @@ export class IndexComponent implements OnInit {
 
   getIndexEmployee() {
       this.indexservice.getEmployeeData().subscribe(data => {
-        // console.log(data);
         if (data['status'] === true) {
         this.employees = data['data'].length;
-        // console.log(this.employees);
         } else {
           this.employees = 0;
         }
@@ -34,10 +32,8 @@ export class IndexComponent implements OnInit {
 
   getIndexcomplaint() {
     this.indexservice.getBranchesData().subscribe(data => {
-      // console.log(data);
       if (data['status'] === true) {
         this.branches = data['data'].length;
-        // console.log(this.branches);
       } else {
         let user = JSON.parse(localStorage.getItem('userData'));
         this.branches = 0;

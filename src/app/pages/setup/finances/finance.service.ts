@@ -16,21 +16,11 @@ export class FinanceService {
   }
 
   createFinances(itemobj){
-    let httpheaders= new HttpHeaders()
-      .set('content-type','application/json');
-    let options={
-      headers:httpheaders
-    }
-    return this.http.post(`${this.url}/finances`, itemobj, options);
+    return this.http.post(`${this.url}/finances`, itemobj);
   }
 
   editFinances(id, itemedit){
-    let httpheaders= new HttpHeaders()
-      .set('content-type','application/json');
-    let options={
-      headers:httpheaders
-    }
-  return this.http.put(`${this.url}/finances/`+id, itemedit, options);
+  return this.http.put(`${this.url}/finances/`+id, itemedit);
   }
 
   deleteFinances(id){

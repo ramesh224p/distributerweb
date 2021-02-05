@@ -59,7 +59,6 @@ export class FinancesComponent implements OnInit {
     this.works = '';
     this.address = '';
     this.number = '';
-    console.log('empAdd');
   }
 
   addFinance() {
@@ -69,14 +68,9 @@ export class FinancesComponent implements OnInit {
       address: this.address,
       mobile_number: this.number
     };
-
-    // console.log(itemobj)
-
     this.financeservice.createFinances(itemobj).subscribe(data => {
-      console.log(data);
       if ( data['status'] === true) {
         this.finances.push(data['data']['data']);
-        console.log(this.finances);
       }
     });
   }
@@ -91,20 +85,15 @@ export class FinancesComponent implements OnInit {
   }
 
   editFinance(_id, i) {
-    console.log(this._id, this.i);
     let itemedit = {
       person_name: this.personname,
       work: this.works,
       address: this.address,
       mobile_number: this.number
     };
-    
-    console.log(itemedit);
     this.financeservice.editFinances(this._id, itemedit).subscribe(data => {
       if ( data['status'] === true) {
-        console.log(data['data']['data']);
-        console.log(this.i);
-        // this.finances.push(data['data']['data'] ); 
+        this.finances = data['data'];
       }
     });
   }
@@ -132,17 +121,13 @@ export class FinancesComponent implements OnInit {
   loadData() {
     this.financeservice.getFinances().subscribe(data => {
       this.finances = data['data'];
-      console.log(this.finances);
     });
   }
 
   financeDelete(id, index) {
-    console.log(id, index);
     this.financeservice.deleteFinances(id).subscribe(data => {
-      console.log(this.finances, data);
       if (data['status'] === true) { 
         this.finances.splice(index, 1);
-        console.log(this.finances);
       }
     });
   }

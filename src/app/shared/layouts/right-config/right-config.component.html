@@ -4,7 +4,15 @@
 </button>
 <div class="right-config-wrap" [ngClass]="{'right-config-wrap-on':isConfigToggle}">
   <ul class="config-content">
-    <li class="config-list">  
+    <div>
+    <li class="config-list">
+      <input type ="file" name="imgUploader" class="btn btn-icon btn-info" (change)="encodeImageFileAsURL($event)" file-model = "myFile"  />  
+    </li>
+    <li class="config-list">
+        <button class="btn btn-icon btn-primary" (click)="upload()"><span>Upload</span></button>
+    </li>
+  </div>
+    <li class="config-list"> 
       <button class="btn btn-icon btn-danger" (click)="signOut()"><span>Sign-Out</span></button>
     </li>
   </ul>

@@ -93,7 +93,7 @@ export class IndentComponent implements OnInit {
     
     this.indentservice.editIndent(this._id, itemedit).subscribe(data => {
       if ( data['status'] === true) {
-        // this.indent.push(data['data']['data'] );
+        this.indent = data['data'];
       }
     });
   }

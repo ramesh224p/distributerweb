@@ -7,6 +7,7 @@
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "target": "es5",
     "typeRoots": [
@@ -16,6 +17,7 @@
       "es2017",
       "dom"
     ],
+    // "module": "es2015",
     "module": "es2015",
     "baseUrl": "./"
   }

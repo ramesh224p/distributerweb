@@ -1,8 +1,11 @@
 <div class="pages-top">
   <div class="avatar-wrap">
     <div class="avatar">
-      <img src="{{avatarImgSrc}}" alt="avatar">
+      <img [src]="avatarImgSrc" alt="avatar" width="100%" height="100%" (click)="selectFile.click()">
     </div>
+    <button (click)="thirdModal.open()">
+      <i class="fa fa-pencil"></i>
+    </button>
     <div class="user-info-wrap">
       <span class="user-name" title="{{userName}}">{{userName}}</span>
       <span class="user-post" title="{{userPost}}">{{userPost}}</span>
@@ -16,12 +19,12 @@
   </div>
 
 
-  <div class="search-group">
+  <!-- <div class="search-group">
     <input type="text" class="search-input" placeholder="Search  · · ·" [(ngModel)]="serachemp">
     <button class="search-btn" (click)="empsearch()">
       <i class="fa fa-search fa-fw"></i>
     </button>
-  </div>
+  </div> -->
 
   <div class="msg-tips-wrap">
     <div class="msg-entrance ring">
@@ -35,3 +38,20 @@
   </div>
 
 </div>
+
+<modal #thirdModal [closeOnEscape]="false" [closeOnOutsideClick]="false" >
+  <modal-header>
+    <h3>Profile Picture Update</h3>
+  </modal-header>
+  <modal-content >
+    <p>
+      <input type ="file" name="imgUploader" class="btn btn-icon btn-info" (change)="encodeImageFileAsURL($event)" file-model = "myFile" #selectFile />
+    </p>
+    <p>
+      <button class="btn btn-icon btn-primary" (click)="upload()"><span>Upload</span></button>
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="closeModal(thirdModal)">close</button>
+  </modal-footer>
+</modal>

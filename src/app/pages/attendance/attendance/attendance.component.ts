@@ -67,14 +67,15 @@ export class AttendanceComponent implements OnInit {
 
   breakTime(attnd_id){
     let breaks = {
-      break : moment(Date.now()).format('DD-MM-YYYY HH:mm:ss')
+      break : moment(Date.now()).format('HH:mm:ss')
     }
     var str = breaks.break;
     var p = str.split("-");
     var date = new Date( p['0'], p['1'],p['2'],p['3'],p['4'],p['5']);
     console.log(date);
-    console.log(typeof(breaks.break))
-    this.http.put(`${this.url}/attendance/`+this.attnd_id, breaks ).subscribe(data =>{
+    console.log(breaks.break)
+    console.log(attnd_id)
+    this.http.put(`${this.url}/attendance/`+ attnd_id, breaks ).subscribe(data =>{
       console.log(data);
     })
   }
@@ -83,8 +84,8 @@ export class AttendanceComponent implements OnInit {
     let statusobj = {
       status : 2
     }
-    console.log(this.attnd_id)
-    this.http.put(`${this.url}/attendance/`+this.attnd_id, statusobj ).subscribe(data =>{
+    console.log(attnd_id)
+    this.http.put(`${this.url}/attendance/`+attnd_id, statusobj ).subscribe(data =>{
       console.log(data);
       this.emp_id = 0;
       this.router.navigate(['/pages/index']);

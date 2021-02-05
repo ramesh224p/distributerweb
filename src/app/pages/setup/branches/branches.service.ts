@@ -16,21 +16,11 @@ export class BranchesService {
   }
 
   createBranch(itemobj){
-    let httpheaders= new HttpHeaders()
-      .set('content-type','application/json');
-    let options={
-      headers:httpheaders
-    }
-    return this.http.post(`${this.url}/branches`, itemobj, options);
+    return this.http.post(`${this.url}/branches`, itemobj);
   }
 
   editBranch(id, itemedit){
-    let httpheaders= new HttpHeaders()
-      .set('content-type','application/json');
-    let options={
-      headers:httpheaders
-    }
-  return this.http.put(`${this.url}/branches/`+id, itemedit, options);
+  return this.http.put(`${this.url}/branches/`+id, itemedit);
   }
 
   deleteBranch(id){

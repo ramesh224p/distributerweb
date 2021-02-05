@@ -83,9 +83,7 @@ export class ComplaintsComponent implements OnInit {
     this.complaintservice.editComplaints(this._id, itemedit).subscribe(data => {
       if ( data['status'] === true) {
         console.log(this.closeModal);
-        this.complaintservice.getComplaints().subscribe(data => {
-          this.complaintes = data['data'];
-        })
+        this.complaintes = data['data'];
       }
     });
   }
