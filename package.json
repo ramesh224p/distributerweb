@@ -14,9 +14,12 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/build-angular": "^0.13.10",
     "@angular/animations": "^7.2.10",
+    "@angular/cli": "^7.3.10",
     "@angular/common": "^7.2.10",
     "@angular/compiler": "^7.2.10",
+    "@angular/compiler-cli": "^7.2.16",
     "@angular/core": "^7.2.10",
     "@angular/forms": "^7.2.10",
     "@angular/http": "^7.2.10",
@@ -51,12 +54,10 @@
     "socket.io": "^3.1.0",
     "sweetalert2": "^7.6.3",
     "tslib": "^1.9.0",
+    "typescript": "^3.2.4",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.13.0",
-    "@angular/cli": "^7.3.6",
-    "@angular/compiler-cli": "^7.2.10",
     "@angular/language-service": "^7.2.10",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
@@ -73,7 +74,6 @@
     "node-sass": "^4.14.1",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
-    "tslint": "~5.11.0",
-    "typescript": "~3.2.2"
+    "tslint": "~5.11.0"
   }
 }
