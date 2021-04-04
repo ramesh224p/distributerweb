@@ -13,13 +13,13 @@
     "lint": "ng lint",
     "heroku-postbuild": "ng build --prod",
     "e2e": "ng e2e",
-	 "postinstall": "ng build"
+    "postinstall": "ng build --output-path angularapp --aot --prod"
   },
   "private": true,
   "dependencies": {
     "@angular-devkit/build-angular": "^0.13.10",
     "@angular/animations": "^7.2.10",
-    "@angular/cli": "^7.3.10",
+    "@angular/cli": "^11.2.7",
     "@angular/common": "^7.2.10",
     "@angular/compiler": "^7.2.10",
     "@angular/compiler-cli": "^7.2.16",
@@ -62,6 +62,8 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
+    "@angular/cli": "^11.2.7",
+    "@angular/compiler-cli": "^7.2.16",
     "@angular/language-service": "^7.2.10",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
